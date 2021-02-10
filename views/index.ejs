@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <%- include('inc/metatag.ejs') %>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/popup.css">
+
+    <title>PROJECT2</title>
+</head>
+
+<body>
+  <div class="cont">
+    <%- include('inc/site_version.ejs') %>
+      <div class="header">
+        <div class="headercont">
+          <div class="logo">
+            <%- include('inc/logo.ejs') %>
+          </div>
+          <div class="search" title="Search something">
+            <input type="text" name="search" id="search" placeholder="search box to here">
+            <span class="searchbtn">
+              <i class="fas fa-search"></i>
+            </span>
+            <div class="results">
+              <img class="lazyload searchloading" data-src="/img/loading.gif" alt="search loading gif">
+              <span><a href="/kaan">kaan</a></span>
+              <span><a href="/kaan1">kaan1</a></span>
+              <span><a href="/kaan23">kaan23</a></span>
+              <span><a href="/kaan4112">kaan4112</a></span>
+            </div>
+          </div>
+          <div class="right">
+            <%- include('inc/header_right.ejs') %>
+          </div>
+        </div>
+      </div>
+      <div class="center">
+        <div class="centercont">
+          <%- include('inc/banner.ejs') %>
+            <%- include('inc/sendpost.ejs') %>
+              <div class="posts"></div>
+              <div class="loading">
+                <img class="lazyload" data-src="/img/bird.gif" alt="loadinggif">
+              </div>
+        </div>
+
+        <div class="cright">right</div>
+
+
+      </div>
+  </div>
+  <%- include('inc/share.ejs') %>
+    <%- include('inc/report.ejs') %>
+      <%- include('inc/popup.ejs') %>
+        <i onclick="topFunction()" id="gotopbtn" title="Go to top" class="fas fa-arrow-up"></i>
+
+        <script src="/js/jquery.min.js"></script>
+
+        <script src="/js/lazysizes.min.js" async></script>
+        <script src="/js/theme.min.js"></script>
+        <script src="/js/fontawesome.js"></script>
+        <script src="/js/index.min.js"></script>
+        <script src="/js/post.min.js"></script>
+        <script src="/js/addpost.js"></script>
+        <script src="/js/popup.js"></script>
+        <script src="/js/utm_source.js"></script>
+</body>
+
+</html>

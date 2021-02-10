@@ -1,0 +1,4 @@
+{
+    "verbose": true,
+    "ignore": ["forbidden/posts/*", "src/js/*", "forbidden/users/*"]
+  }
