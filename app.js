@@ -109,8 +109,8 @@ app.use(session({
    resave: false,
    saveUninitialized: true,
    cookie: { ///
-      httpOnly: false, // minimize risk of XSS attacks by restricting the client from reading the cookie
-      secure: false, // only send cookie over https
+      httpOnly: true, // minimize risk of XSS attacks by restricting the client from reading the cookie
+      secure: true, // only send cookie over https
       maxAge: 2629800000 // set cookie expiry length in ms // 2629800000 = 1 month
    }
 }));
