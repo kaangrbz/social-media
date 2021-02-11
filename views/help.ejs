@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<%- include('inc/metatag.ejs') %>
+		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/popup.css">
+
+		<title>Help</title>
+</head>
+
+<body>
+	<div class="cont">
+		<%- include('inc/site_version.ejs') %>
+			<div class="header">
+				<div class="headercont headercont-help">
+					<div class="logo">
+						<a href="/">
+							<%- include('inc/logo.ejs') %>
+						</a>
+					</div>
+					<div class="right">
+						<label class="mode-control">
+							<input type="checkbox" id="mode-btn">
+							<span><i class="fas fa-moon"></i></span>
+							<span><i class="fas fa-sun"></i></span>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="center">
+				<div class="centercont">
+					<h1>This is h1</h1>
+					<h2>This is h2</h2>
+					<h3>This is h3</h3>
+					<h4>This is h4</h4>
+					<h5>This is h5</h5>
+					<h6>This is h6</h6>
+					<a href="#">this is link</a>
+				</div>
+
+			</div>
+
+			<%- include('inc/popup.ejs') %>
+			<%- include('inc/cookie.ejs') %>
+				<i onclick="topFunction()" id="gotopbtn" title="Go to top" class="fas fa-arrow-up"></i>
+				<script src="/js/jquery.min.js"></script>
+
+				<script src="/js/theme.min.js"></script>
+				<script src="/js/lazysizes.min.js" async></script>
+				<script src="/js/fontawesome.js"></script>
+				<script src="/js/popup.js"></script>
+				<script src="/js/index.js"></script>
+</body>
+
+</html>

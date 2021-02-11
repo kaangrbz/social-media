@@ -109,8 +109,8 @@ app.use(session({
    resave: false,
    saveUninitialized: true,
    cookie: { ///
-      httpOnly: false, // minimize risk of XSS attacks by restricting the client from reading the cookie
-      secure: false, // only send cookie over https
+      // httpOnly: false, // minimize risk of XSS attacks by restricting the client from reading the cookie
+      // secure: false, // only send cookie over https
       maxAge: 2629800000 // set cookie expiry length in ms // 2629800000 = 1 month
    }
 }));
@@ -582,6 +582,11 @@ app.route('/notif/')
       else {
          res.json({ status: 0 })
       }
+   })
+
+app.route('/help')
+   .get((req, res) => {
+      res.render('help')
    })
 
 app.route('/:username') // :profile ////

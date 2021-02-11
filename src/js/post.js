@@ -218,7 +218,7 @@ function getpost() {
             <div class="options">
               <div class="arrow"> </div>
               <div>
-              `+ ((res.ismine) ? deleteTag : '') + `
+              `+ ((res.ismine[abs]) ? deleteTag : '') + `
               `+ shareTag + `               
               `+ reportTag + ` 
               `+ saveTag + `        

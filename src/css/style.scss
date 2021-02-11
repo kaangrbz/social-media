@@ -81,6 +81,9 @@ $svgspinsec: 14s;
       }
     }
   }
+  .headercont-help {
+    padding-bottom: 80px;
+  }
   .right {
     display: flex;
     flex-direction: row;
@@ -136,7 +139,7 @@ $svgspinsec: 14s;
       margin: 0;
       margin-top: 10px;
       padding: 10px 15px;
-      border-radius: 5px;
+      padding-right: 8px;
       background: #333;
       color: #f1f1f1;
       z-index: 99;
@@ -186,13 +189,12 @@ $svgspinsec: 14s;
       li {
         border: 1px solid #f1f1f1;
         padding: 3px 5px;
-        border-radius: 5px;
         display: flex;
         align-items: center;
         flex-direction: row;
         justify-content: space-between;
         i {
-          font-size: 25px;
+          font-size: 18px;
           margin-right: 10px;
         }
         i[class="fas fa-heart"] {
@@ -313,7 +315,7 @@ $svgspinsec: 14s;
         transition: 500ms all;
         opacity: 0;
         visibility: hidden;
-        background-color: rgba(56, 56, 56, 0.911);
+        background-color: rgba(24, 24, 24, 0.911);
         height: 100%;
         display: flex;
         align-items: center;
@@ -325,7 +327,7 @@ $svgspinsec: 14s;
         // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9f0e0e",endColorstr="#ac2f2f",GradientType=1);
 
         .cont {
-          min-width: 400px;
+          min-width: 500px;
           width: auto;
           height: auto;
           background: rgb(31, 31, 31);
@@ -350,8 +352,6 @@ $svgspinsec: 14s;
           filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1f1f1f",endColorstr="#111010",GradientType=1);
 
           border: 1px solid #f0f0f0;
-
-          border-radius: 10px;
           padding: 20px;
           display: block;
           input[type="file"] {
@@ -365,7 +365,7 @@ $svgspinsec: 14s;
             font-weight: 400;
             padding: 12px 10px;
             margin-bottom: 10px;
-            border: 1px solid #eee;
+            border: 1px solid rgba(238, 238, 238, 0.247);
           }
           input,
           textarea {
@@ -469,7 +469,7 @@ $svgspinsec: 14s;
           text-decoration: none;
         }
         .pstatus {
-          margin-top: 20px;
+          margin: 20px 0 30px 0;
           display: flex;
           justify-content: space-evenly;
           a {
@@ -490,9 +490,14 @@ $svgspinsec: 14s;
           max-width: 600px;
           margin-top: 30px;
           // border:1px solid rgba(138, 138, 138, 0.7);
+          -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+          -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
           border-radius: 5px;
           padding: 10px;
-
+          &:first-of-type {
+            margin-top: 0px;
+          }
           .header {
             display: flex;
             flex-direction: row;
@@ -502,16 +507,16 @@ $svgspinsec: 14s;
             position: relative;
             .more {
               position: absolute;
-              top: 30px;
-              right: 0px;
+              top: 5px;
+              right: 5px;
               margin-right: 5px;
               padding: 5px;
               cursor: pointer;
-              background: #353535;
+              background: transparent;
               width: 25px;
               height: 25px;
-              color: #f1f1f1;
-              border-radius: 50%;
+              color: #121212;
+              // border-radius: 50%;
               font-size: 15px;
               line-height: 14px;
               display: block;
@@ -519,11 +524,11 @@ $svgspinsec: 14s;
               align-items: center;
               text-align: center;
             }
-            $opt: rgb(184, 184, 184);
+            $opt: #dcdcdc;
             .options {
               position: absolute;
-              top: 60px;
-              right: 0px;
+              top: 30px;
+              right: 5px;
               min-width: 200px;
               margin-top: 10px;
               padding: 10px;
@@ -555,6 +560,10 @@ $svgspinsec: 14s;
                 text-decoration: none;
                 font-size: 17px;
                 margin-bottom: 5px;
+                transition: 200ms background;
+                &:hover {
+                  background: #bdbdbd;
+                }
                 img {
                   margin-right: 10px;
                   max-width: 20px;
@@ -714,17 +723,17 @@ $svgspinsec: 14s;
   display: none;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 20px;
+  bottom: 10px;
   cursor: pointer;
-  transition: 300ms all;
+  transition: 400ms all;
   z-index: 999;
-  color: #56a760;
+  color: #121212;
   &:hover {
-    color: #6ac574;
+    color: #3f3f3f;
   }
   i {
     font-size: 30px;
-    color: #6ac574;
+    color: #0c0c0c;
   }
 }
 .loading {
@@ -782,6 +791,9 @@ $svgspinsec: 14s;
 body.dark {
   background: #242424;
   color: #f1f1f1;
+  .more {
+    color: #f1f1f1 !important;
+  }
   .headercont {
     a {
       color: #f1f1f1 !important;
@@ -1191,7 +1203,7 @@ hr {
   top: -999px;
   transform: translate(-50%, -50%);
   transition: 300ms all;
-  background-color: rgba(31, 31, 31, 0.795);
+  background-color: rgba(24, 24, 24, 0.911);
   width: 100%;
   height: 100vh;
   visibility: hidden;
@@ -1288,7 +1300,7 @@ hr {
   top: -999px;
   transform: translate(-50%, -50%);
   transition: 300ms all;
-  background-color: rgba(31, 31, 31, 0.795);
+  background-color: rgba(24, 24, 24, 0.911);
   width: 100%;
   height: 100vh;
   visibility: hidden;
@@ -1296,7 +1308,7 @@ hr {
   .cont {
     border-radius: 5px;
     position: relative;
-    background: rgb(24, 24, 24);
+    background: rgb(12, 12, 12);
     padding: 20px 10px;
     padding-top: 40px;
     width: 400px;
@@ -1328,11 +1340,20 @@ hr {
     }
     .report-close {
       cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: absolute;
-      padding: 5px;
       font-size: 20px;
-      top: 0px;
+      line-height: 19px;
+      width: 30px;
+      height: 30px;
+      top: 50%;
       right: 10px;
+      transform: translateY(-50%);
+      background: #f1f1f1;
+      color: #121212;
+      border-radius: 50%;
     }
   }
 }
@@ -1375,4 +1396,50 @@ hr {
   display: none;
   visibility: hidden;
   opacity: 0;
+}
+.cookie {
+  position: fixed;
+  left: 0px;
+  bottom: -200px;
+  width: 100%;
+  background: #121212;
+  opacity: 0;
+  visibility: hidden;
+  transition: 1500ms all;
+  .cont {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .message {
+      margin-right: 10px;
+      color: #f1f1f1;
+      flex: 1;
+      a {
+        color: inherit;
+      }
+    }
+    .icon {
+      margin-right: 10px;
+      img {
+        width: 70px;
+      }
+    }
+    .cookie-btn {
+      transition: 300ms all;
+      cursor: pointer;
+      padding: 5px 8px;
+      background: #920d0d;
+      color: #fff;
+      font-size: 17px;
+      &:hover {
+        background: #be1212;
+      }
+    }
+  }
+}
+.cookie-active {
+  opacity: 1;
+  visibility: visible;
+  bottom: 0px;
 }
