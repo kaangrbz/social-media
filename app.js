@@ -109,8 +109,8 @@ app.use(session({
    resave: false,
    saveUninitialized: true,
    cookie: { ///
-      httpOnly: true, // minimize risk of XSS attacks by restricting the client from reading the cookie
-      secure: true, // only send cookie over https
+      // httpOnly: false, // minimize risk of XSS attacks by restricting the client from reading the cookie
+      // secure: false, // only send cookie over https
       maxAge: 2629800000 // set cookie expiry length in ms // 2629800000 = 1 month
    }
 }));
@@ -123,9 +123,9 @@ app.route('/search')
       res.redirect('/')
    })
    .post(async (req, res) => {
-      console.log('req.body.searchData =>',req.body.searchData);
-      let posts = await Post.find({ article: ("/" + req.body.searchData + "/i"), visibility: true }).limit(4).sort({ createdAt: -1 })
-      let users = await User.find({ username: ("/" + req.body.searchData + "/i"), visibility: true }).limit(4).sort({ createdAt: -1 })
+      console.log('req.body.searchData =>', req.body.searchData);
+      let posts = await Post.find({ article: req.body.searchData }).limit(4).sort({ createdAt: -1 })
+      let users = await User.find({ username: req.body.searchData }).limit(4).sort({ createdAt: -1 })
 
       console.log('127 posts =>', posts);
       console.log('127 users =>', users);
