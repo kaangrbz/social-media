@@ -138,7 +138,11 @@ app.route('/search')
       }
    })
 
-
+app.route('/sitemap')
+   .get((req, res) => {
+      res.sendFile(__dirname + '/sitemap.xml')
+   })
+   
 app.get('/posts/*', function (req, res, next) {
    res.redirect('/')
 });

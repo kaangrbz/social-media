@@ -457,7 +457,7 @@ $('.notif').on('click', (e) => {
                   `+ uname + `
                 </b>liked your post </a><span class="ntime">
                                   `+ res.dates[index] + `
-                                </span></li><hr>`
+                                </span></li>`
                   ntag.append(t)
                   break;
 
@@ -466,7 +466,7 @@ $('.notif').on('click', (e) => {
                     `+ uname + `
                   </b>started to follow you</a><span title="" class="ntime">
                                     `+ res.dates[index] + `
-                                  </span></li><hr>`
+                                  </span></li>`
                   ntag.append(t)
                   break;
 
@@ -475,18 +475,18 @@ $('.notif').on('click', (e) => {
                   `+ uname + `
                 </b> commented on your post</a><span class="ntime">
                                   `+ res.dates[index] + `
-                                </span></li><hr>`
+                                </span></li>`
                   ntag.append(t)
                   break;
               }
             });
           } catch (error) {
-            t = `<li><a href="" onclick="location.reload()">There is an error please refresh the page</a><br>err: ` + error + `</li><hr>`
+            t = `<li><a href="" onclick="location.reload()">There is an error please refresh the page</a><br>err: ` + error + `</li>`
             ntag.append(t)
           }
         }
         else {
-          t = `<li><a href="javascript:void(0)">You have no notification, yet..<i class="far fa-sad-tear"></i></a></li><hr>`
+          t = `<li><a href="javascript:void(0)">You have no notification, yet..<i class="far fa-sad-tear"></i></a></li>`
           ntag.append(t)
         }
 
