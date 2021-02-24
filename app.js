@@ -118,6 +118,10 @@ app.use(session({
 // ## ROUTES ##
 // app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 
+// app.get('*', function (req, res) { // for maintenance
+// 	res.render('maintenance')
+// })
+
 app.route('/search')
    .get((req, res) => {
       res.redirect('/')
