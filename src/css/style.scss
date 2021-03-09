@@ -138,10 +138,9 @@ $svgspinsec: 14s;
       width: 100%;
       margin: 0;
       margin-top: 10px;
-      padding: 10px 10px;
-      padding-right: 8px;
-      border-radius: 5px;
-      background: #333;
+      padding: 10px 10px !important;
+      border-radius: 3px;
+      background: #171717;
       color: #f1f1f1;
       z-index: 99;
       display: flex;
@@ -179,9 +178,9 @@ $svgspinsec: 14s;
       .arrow {
         width: 0;
         height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-bottom: 20px solid #333;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 15px solid #fff;
         position: absolute;
         top: calc(50% + 20px);
         right: 0;
@@ -196,7 +195,7 @@ $svgspinsec: 14s;
         align-items: center;
         flex-direction: row;
         justify-content: space-between;
-        &:last-child{
+        &:last-child {
           margin-bottom: 0px;
         }
         i {
@@ -495,9 +494,9 @@ $svgspinsec: 14s;
           max-width: 600px;
           margin-top: 30px;
           // border:1px solid rgba(138, 138, 138, 0.7);
-          -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
-          -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
-          box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+          // -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+          // -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
           border-radius: 5px;
           padding: 10px;
           &:first-of-type {
@@ -520,16 +519,17 @@ $svgspinsec: 14s;
               background: transparent;
               width: 25px;
               height: 25px;
-              color: #121212;
-              // border-radius: 50%;
+              color: #f1f1f1;
               font-size: 15px;
               line-height: 14px;
               display: block;
               flex-direction: row;
               align-items: center;
               text-align: center;
+              background: #363636;
+              border-radius: 50%;
             }
-            $opt: #dcdcdc;
+            $opt: #e6e6e6;
             .options {
               position: absolute;
               top: 30px;
@@ -537,21 +537,21 @@ $svgspinsec: 14s;
               min-width: 200px;
               margin-top: 10px;
               padding: 10px;
-              padding-bottom: 0px;
               border-radius: 5px;
               background: $opt;
               color: #f1f1f1;
               display: none;
               opacity: 0.94;
+              box-shadow: 0px 5px 20px 5px #000;
               z-index: 99;
               .arrow {
                 width: 0;
                 height: 0;
-                border-left: 10px solid transparent;
-                border-right: 10px solid transparent;
-                border-bottom: 20px solid $opt;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-bottom: 15px solid $opt;
                 position: absolute;
-                top: -10px;
+                top: -7px;
                 right: 5%;
                 transform: translateX(5%);
               }
@@ -566,6 +566,9 @@ $svgspinsec: 14s;
                 font-size: 17px;
                 margin-bottom: 5px;
                 transition: 200ms background;
+                &:last-child {
+                  margin-bottom: 0px;
+                }
                 &:hover {
                   background: #bdbdbd;
                 }
@@ -612,17 +615,18 @@ $svgspinsec: 14s;
         .buttons {
           width: 70px;
           padding: 6px;
-          background-color: rgba($color: #bbbbbb, $alpha: 0.8);
+          // background-color: rgba($color: #bbbbbb, $alpha: 0.8);
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: center;
           border-radius: 30px;
-          // box-shadow: 0 2px 6px 1px rgba(243, 243, 243, 0.15);
-          box-shadow: 0 2px 6px 1px rgba(41, 41, 41, 0.15);
+          box-shadow: 0 0px 6px 1px rgba(70, 70, 70, 0.15);
+          background: #f1f1f1;
           &:nth-child(even) {
-            // background-color: rgba($color: #5a5a5a, $alpha: 1);
-            color: rgba(34, 34, 34, 0.86);
+            color: #121212;
+            box-shadow: none;
+            background: transparent;
             font-weight: 600;
             max-width: 80px;
             justify-content: center;
@@ -796,8 +800,20 @@ $svgspinsec: 14s;
 body.dark {
   background: #242424;
   color: #f1f1f1;
+  $optDark: #020202;
+  .options {
+    box-shadow: 0px 5px 20px 5px $optDark;
+  }
+  .buttons {
+    box-shadow: 0 0px 6px 1px rgba(255, 255, 255, 1);
+    &:nth-child(even) {
+      color: #f1f1f1 !important;
+    }
+  }
   .more {
-    color: #f1f1f1 !important;
+    background: #f1f1f1 !important;
+    border-radius: 50%;
+    color: #121212 !important;
   }
   .headercont {
     a {
@@ -939,12 +955,12 @@ body.dark .mode-control span {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 650px) {
   .centercont {
-    min-width: 500px !important;
+    min-width: 550px !important;
   }
   .post {
-    min-width: 500px !important;
+    min-width: 550px !important;
   }
   .search {
     $search-box-width: 200px;
@@ -954,12 +970,15 @@ body.dark .mode-control span {
     }
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 580px) {
+  .center {
+    padding: 0px;
+  }
   .centercont {
-    min-width: 400px !important;
+    min-width: 480px !important;
   }
   .post {
-    min-width: 400px !important;
+    min-width: 480px !important;
   }
   .search {
     $search-box-width: 300px;
@@ -1002,7 +1021,7 @@ body.dark .mode-control span {
     }
   }
 }
-@media (max-width: 500px) {
+@media (max-width: 510px) {
   .headercont {
     .right {
       .notifications {
@@ -1014,13 +1033,13 @@ body.dark .mode-control span {
     }
   }
   .centercont {
-    min-width: 300px !important;
+    min-width: 410px !important;
   }
   .post {
-    min-width: 300px !important;
+    min-width: 410px !important;
   }
 }
-@media (max-width: 450px) {
+@media (max-width: 440px) {
   .headercont {
     .right {
       .notifications {
@@ -1030,6 +1049,31 @@ body.dark .mode-control span {
         margin-right: 8px;
       }
     }
+  }
+  .centercont {
+    min-width: 360px !important;
+  }
+  .post {
+    min-width: 360px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .headercont {
+    .right {
+      .notifications {
+        min-width: 300px;
+      }
+      > * {
+        margin-right: 8px;
+      }
+    }
+  }
+  .centercont {
+    min-width: 300px !important;
+  }
+  .post {
+    min-width: 300px !important;
   }
 }
 
@@ -1213,6 +1257,8 @@ hr {
   height: 100vh;
   visibility: hidden;
   opacity: 0;
+  z-index: 10;
+  color: #f1f1f1;
   .cont {
     position: relative;
     background: rgb(24, 24, 24);
@@ -1310,12 +1356,13 @@ hr {
   height: 100vh;
   visibility: hidden;
   opacity: 0;
+  z-index: 100;
   .cont {
     border-radius: 5px;
     position: relative;
     background: rgb(12, 12, 12);
     padding: 20px 10px;
-    padding-top: 40px;
+    color: inherit;
     width: 400px;
     height: auto;
     z-index: 100;

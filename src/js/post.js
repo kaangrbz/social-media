@@ -1,7 +1,22 @@
 $(window).on('beforeunload', () => {
   // $('.posts').empty() // delete all posts before reload
 });
-
+function share(e) {
+  $('.share-div').addClass('share-active');
+  $('.options').hide(200);
+  protocol = (window.location.protocol === 'http:' ? 'https:' : 'https:')
+  link = protocol + '//' + window.location.hostname + '/post/' + postid;
+  text = 'Hey%2C%20you%20should%20see%20this%20post%0A';
+  $('.link-cont .link').html(link)
+  $('.link-cont .link').attr('title', link)
+  $('.facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + 'https://www.youtube.com/watch?v=74LAYoqo0p4')
+  $('.twitter').attr('href', 'https://twitter.com/intent/tweet?url=' + link + '&text=' + text)
+  $('.whatsapp').attr('href', 'https://wa.me/?text=' + text + '' + link)
+  $('.pinterest').attr('href', 'https://pinterest.com/pin/create/button/?url=' + link + '&media=&description=' + text)
+  $('.linkedin').attr('href', 'https://www.linkedin.com/shareArticle?mini=true&url=' + link + '&title=&summary=' + text + '&source=')
+  $('.signal').attr('href', 'signal://send?text=' + text + link)
+  $('.mail').attr('href', 'mailto:info@example.com?&subject=' + text + '&body=' + link)
+}
 e = true
 $(window).on('scroll', function () {
   if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500) {
@@ -15,11 +30,11 @@ $(window).on('load', () => {
 var sj = true
 verifiedTag = '<span class="verified" title="Verified account"><i class="far fa-check-circle"></i></span>'
 hiddenTag = '<span class="hidden" title="Hidden post, just you can see this post"><i class="far fa-eye-slash"></i></span>'
-// bannerTag = '<div class="banner"><a href="https://tr.link/ref/devkaan"><img class="lazyload" data-src="//cdn.tr.link/img/728x90.png" title="Para Kazanmak İçin Tıkla Kayıt OL" /></a></div>'
-shareTag = '<a class="share" title="Share post" href="javascript:void(0)"><img class="lazyload" data-src="/img/share.svg" alt="">Share</a>'
-reportTag = '<a class="report" title="Report post" href="javascript:void(0)"><img class="lazyload" data-src="/img/report.svg" alt="">Report</a>'
-saveTag = '<a class="save" title="Save post" href="javascript:void(0)"><img class="lazyload" data-src="/img/save.svg" alt="">Save</a>'
-deleteTag = '<a class="del" title="Delete post" href="javascript:void(0)"><img class="lazyload" data-src="/img/delete.svg" alt="">Delete</a>'
+// bannerTag = '<div class="banner"><a href="https://tr.link/ref/devkaan"><img class="" src="//cdn.tr.link/img/728x90.png" title="Para Kazanmak İçin Tıkla Kayıt OL" /></a></div>'
+shareTag = '<a class="share" title="Share post" href="javascript:void(0)"><img class="" src="/img/share.svg" alt="">Share</a>'
+reportTag = '<a class="report" title="Report post" href="javascript:void(0)"><img class="" src="/img/report.svg" alt="">Report</a>'
+saveTag = '<a class="save" title="Save post" href="javascript:void(0)"><img class="" src="/img/save.svg" alt="">Save</a>'
+deleteTag = '<a class="del" title="Delete post" href="javascript:void(0)"><img src="/img/delete.svg" alt="">Delete</a>'
 bannerTag = ''
 function getpost() {
   var y = $(window).scrollTop();
@@ -49,10 +64,10 @@ function getpost() {
             r = res.result
             lnd = res.lnd
             counts = res.counts
-            r.forEach((post, abs) => {
-              if ((abs + 1) % adlimit === 0) {
-                $('.posts').append(bannerTag)
-              }
+            r.forEach((post, index) => {
+              // if ((index + 1) % adlimit === 0) {
+              //   $('.posts').append(bannerTag)
+              // }
 
               postid = post.postid
               f = '.post[data-post-id=' + postid + ']'
@@ -73,7 +88,7 @@ function getpost() {
                   ` + res.username + `
                   </a>
                   `+ ((res.isverified) ? verifiedTag : '') + `
-                `+ ((!res.visibility[abs]) ? hiddenTag : '') + `
+                `+ ((!res.visibility[index]) ? hiddenTag : '') + `
                 <div class="pdate">
                 ` + dd + `
                 </div>
@@ -89,7 +104,7 @@ function getpost() {
                 `+ shareTag + `               
                 `+ reportTag + ` 
                 `+ saveTag + `               
-                `+ ((res.ismine) ? (res.visibility[abs] ? visible : hidden) : '') + `
+                `+ ((res.ismine) ? (res.visibility[index] ? visible : hidden) : '') + `
               </div>
             </div>
           </div>
@@ -99,17 +114,17 @@ function getpost() {
             ` + post.article + `
             </p>
             <div class="pmedia" style="display: none;">
-              <img class="lazyload" data-src="" alt="post img">
+              <img class="lazyload" src="" alt="post img">
             </div>
           </div>
           <div class="buttons">
           
-          `+ (res.lnd[abs][0] ?
+          `+ (res.lnd[index][0] ?
                   '<img class="like" src="/img/arrow2.svg" alt="button">'
                   :
                   '<img class="like" src="/img/arrow.svg" alt="button">') + `
           
-          `+ (res.lnd[abs][1] ?
+          `+ (res.lnd[index][1] ?
                   '<img class="dislike" src="/img/arrow2.svg" alt="button">'
                   :
                   '<img class="dislike" src="/img/arrow.svg" alt="button">') + `
@@ -117,15 +132,15 @@ function getpost() {
         
           <div class="buttons">
             +<span class="likes` + postid + `">
-            `+ counts[abs][0] + `
+            `+ counts[index][0] + `
             </span>
             /
             -<span class="dislikes` + postid + `">
-            `+ counts[abs][1] + `
+            `+ counts[index][1] + `
             </span>
           </div>
           <span class="commentcount">
-          `+ counts[abs][2] + `&nbsp;comment
+          `+ counts[index][2] + `&nbsp;comment
           </span>
           <div class="comments">
             <div class="comment">
@@ -153,23 +168,8 @@ function getpost() {
                 $('.report-div .postid').html(postid)
                 $('.options').hide(200);
               })
-
-
-              $(f + ' .share').on('click', (e) => {
-                $('.share-div').addClass('share-active');
-                $('.options').hide(200);
-                protocol = (window.location.protocol === 'http:' ? 'https:' : 'https:')
-                link = protocol + '//' + window.location.hostname + '/post/' + postid
-                text = 'Hey%2C%20you%20should%20see%20this%20post%0A'
-
-                $('.link-cont .link').html(link)
-                $('.link-cont .link').attr('title', link)
-                $('.facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + link)
-                $('.twitter').attr('href', 'https://twitter.com/intent/tweet?url=' + link + '&text=' + text)
-                $('.whatsapp').attr('href', 'https://wa.me/?text=' + text + '' + link)
-                $('.pinterest').attr('href', 'https://pinterest.com/pin/create/button/?url=' + link + '&media=&description=' + text)
-                $('.linkedin').attr('href', 'https://www.linkedin.com/shareArticle?mini=true&url=' + link + '&title=&summary=' + text + '&source=')
-                $('.mail').attr('href', 'mailto:info@example.com?&subject=' + text + '&body=' + link)
+              $(f + ' .share').on('click', () => {
+                share(e)
               })
               $(f + ' .visibility').on('click', (e) => { console.log('soon'); })
             })
@@ -183,29 +183,33 @@ function getpost() {
           adlimit = 8
           sj = true
           try {
-            r = res.result
-            counts = res.counts
-            r.forEach((post, abs) => {
-              if ((abs + 1) === adlimit) {
-                adlimit = 0
-                $('.posts').append(bannerTag)
-              }
-              postid = post.postid;
-              d = new Date(post.createdAt)
+            r = res.result;
+            r.forEach((current_item, index) => {
+              // if ((index + 1) === adlimit) {
+              //   adlimit = 0
+              //   $('.posts').append(bannerTag)
+              // }
+
+              counts = current_item.post.counts;
+              is_liked = current_item.is_liked;
+              is_disliked = current_item.is_disliked;
+              postid = current_item.postid;
+
+              d = new Date(current_item.post.createdAt)
               h = d.getHours()
               m = d.getMinutes()
               h = h <= 9 ? '0' + h : h;
               m = m <= 9 ? '0' + m : m;
               dd = d.getDate() + '.' + d.getMonth() + '.' + String(d.getFullYear()).substring(2) + ' ' + h + ':' + m
-              // `+ ((lnd[abs][0]) ? `<img class="like" src="/img/arrow2.svg" alt="">` : `<img class="like" src="/img/arrow.svg" alt="">`) + `
-              // `+ ((lnd[abs][1]) ? `<img class="dislike" src="/img/arrow2.svg" alt="">` : `<img class="dislike" src="/img/arrow.svg" alt="">`) + `
+              // `+ ((lnd[index][0]) ? `<img class="like" src="/img/arrow2.svg" alt="">` : `<img class="like" src="/img/arrow.svg" alt="">`) + `
+              // `+ ((lnd[index][1]) ? `<img class="dislike" src="/img/arrow2.svg" alt="">` : `<img class="dislike" src="/img/arrow.svg" alt="">`) + `
               a = `<div class="post"  style="display: none;" data-post-id="` + postid + `"><div class="header">
             <div class="user">
               <img class="lazyload" data-src="/img/80x80.jpg" alt="user profile">
               <div class="u">
-                <a href="/` + res.usernames[abs] + `">
-                  ` + res.usernames[abs] + `
-                  `+ (res.isverified[abs] ? verifiedTag : '') + `
+                <a href="/` + current_item.username + `">
+                  ` + current_item.username + `
+                  `+ (current_item.is_verified_user ? verifiedTag : '') + `
                 </a>
                 <div class="pdate">
                 ` + dd + `
@@ -218,7 +222,6 @@ function getpost() {
             <div class="options">
               <div class="arrow"> </div>
               <div>
-              `+ ((res.ismine[abs]) ? deleteTag : '') + `
               `+ shareTag + `               
               `+ reportTag + ` 
               `+ saveTag + `        
@@ -228,36 +231,36 @@ function getpost() {
           <div class="article">
             <p class="ptext">
         
-            ` + post.article + `
+            ` + current_item.post.article + `
             </p>
             <div class="pmedia" style="display: none;">
-              <img class="lazyload" data-src="" alt="post img">
+              <img class="lazyload" src="" alt="post img">
             </div>
           </div>
           <div class="buttons">
           
-          `+ (res.lnd[abs][0] ?
-                  '<img class="lazyload like" data-src="/img/arrow2.svg" alt="button">'
+          `+ (is_liked ?
+                  '<img class=" like" src="/img/arrow2.svg" alt="button">'
                   :
-                  '<img class="lazyload like" data-src="/img/arrow.svg" alt="button">') + `
+                  '<img class=" like" src="/img/arrow.svg" alt="button">') + `
           
-          `+ (res.lnd[abs][1] ?
-                  '<img class="lazyload dislike" data-src="/img/arrow2.svg" alt="button">'
+          `+ (is_disliked ?
+                  '<img class=" dislike" src="/img/arrow2.svg" alt="button">'
                   :
-                  '<img class="lazyload dislike" data-src="/img/arrow.svg" alt="button">') + `
+                  '<img class=" dislike" src="/img/arrow.svg" alt="button">') + `
           </div>
         
           <div class="buttons">
             +<span class="likes` + postid + `">
-            `+ counts[abs][0] + `
+            `+ counts[0] + `
             </span>
             /
             -<span class="dislikes` + postid + `">
-            `+ counts[abs][1] + `
+            `+ counts[1] + `
             </span>
           </div>
           <span class="commentcount"><span class="c">
-          `+ counts[abs][2] + `</span>comment
+          `+ counts[2] + `</span>comment
           </span>
           <div class="comments">
             <div class="comment">
@@ -288,23 +291,8 @@ function getpost() {
                 $('.report-div .postid').html(postid)
                 $('.options').hide(200);
               })
-              $(f + ' .share').on('click', (e) => {
-                $('.share-div').addClass('share-active');
-                $('.options').hide(200);
-                protocol = (window.location.protocol === 'http:' ? 'https:' : 'https:')
-                link = protocol + '//' + window.location.hostname + '/post/' + postid
-                text = 'Hey%2C%20you%20should%20see%20this%20post%0A'
-
-                $('.link-cont .link').html(link)
-                $('.link-cont .link').attr('title', link)
-                $('.facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + 'https://www.youtube.com/watch?v=74LAYoqo0p4')
-                $('.twitter').attr('href', 'https://twitter.com/intent/tweet?url=' + link + '&text=' + text)
-                $('.whatsapp').attr('href', 'https://wa.me/?text=' + text + '' + link)
-                $('.pinterest').attr('href', 'https://pinterest.com/pin/create/button/?url=' + link + '&media=&description=' + text)
-                $('.linkedin').attr('href', 'https://www.linkedin.com/shareArticle?mini=true&url=' + link + '&title=&summary=' + text + '&source=')
-                $('.signal').attr('href', 'signal://send?text=' + text + link)
-                $('.mail').attr('href', 'mailto:info@example.com?&subject=' + text + '&body=' + link)
-                // 
+              $(f + ' .share').on('click', () => {
+                share(e)
               })
               $(f + ' .visibility').on('click', (e) => { console.log('soon'); })
             });

@@ -146,7 +146,7 @@ app.route('/sitemap')
    .get((req, res) => {
       res.sendFile(__dirname + '/sitemap.xml')
    })
-   
+
 app.get('/posts/*', function (req, res, next) {
    res.redirect('/')
 });
@@ -202,7 +202,6 @@ app.route('/') // home
                   if (!notif.read) ncount++
                })
             }
-            console.log('ncount =>', ncount);
             res.render('index', { u1, ncount })
          } catch (e) {
             res.render('index')
@@ -660,97 +659,161 @@ app.route('/:username/getpost')
       res.redirect('/')
    })
    .post(async (req, res) => {
-      if (true) {
-         if (req.params.username !== 'favicon.ico') {
-            username = req.params.username
-            userid = req.session.userid
-         }
-         if (req.session.nowuser !== username) {
-            req.session.nowuser = username
-            pcount = 0
-            pid = 999999999999999
-            isverified = []
-            ismine = []
-            usernames = []
-            isfirst = true
-         }
+      if (req.params.username !== 'favicon.ico') {
+         username = req.params.username
+         userid = req.session.userid
+      }
+      if (req.session.nowuser !== username) {
+         req.session.nowuser = username
+         pcount = 0
+         pid = 999999999999999
+         isverified = []
+         ismine = []
+         usernames = []
+         isfirst = true
+      }
 
-         // for index page
-         if (username === 'index') {
-            plimit = 5
-            lnd = []
-            counts = []
-            ismine = []
-            try {
-               fpn = userpath + userid + '/profile.json'
-               let profiledata = await getJSON(fpn)
-               dl = profiledata.following.who.length // DataLength
-               if (dl === 1) {
-                  // following just one guy
-                  followingid = profiledata.following.who[0]
-                  let user = await User.findOne({ userid: followingid, visibility: true, suspend: false }).select('username userid verified -_id')
-                  if (user) {
-                     // user is not suspended and not private account
-                     // check user is blocked or if blocks the user [delete from json file]
-                     let posts = await Post.find({ userid: user.userid, postid: { $lt: pid }, visibility: true }).limit(plimit).sort({ createdAt: -1 })
-                     let status = 3
-                     if (posts.length > 0) {
-                        // has post
-                        status = 4
-                        try {
-                           pid = posts[posts.length - 1].postid // artirma olayini hallet
+      // for index page
+      if (username === 'index') {
+         plimit = 5
+         lnd = []
+         counts = []
+         ismine = []
+         visibility = [];
+         result = [];
+         try {
+            fpn = userpath + userid + '/profile.json'
+            let profiledata = await getJSON(fpn)
+            dl = profiledata.following.who.length // DataLength
+            if (dl === 1) {
+               // following just one guy
+               followingid = profiledata.following.who[0]
+               let user = await User.findOne({ userid: followingid, visibility: true, suspend: false }).select('username userid verified -_id')
+               if (user) {
+                  // user is not suspended and not private account
+                  // check user is blocked or if blocks the user [delete from json file]
+                  let posts = await Post.find({ userid: user.userid, postid: { $lt: pid }, visibility: true }).limit(plimit).sort({ createdAt: -1 })
+                  let status = 3
+                  if (posts.length > 0) {
+                     // has post
+                     status = 4
+                     try {
+                        pid = posts[posts.length - 1].postid // artirma olayini hallet
 
-                           // console.log('517 pid =>', pid); /// 
-                           for (let i = 0; i < posts.length; i++) {
-                              const post = posts[i];
-                              (user.verified) ? isverified.push(1) : isverified.push(0)
-                              usernames.push(user.username)
-                              postfilepath = postpath + post.postid + '.json'
-                              let postfile = await getJSON(postfilepath)
-                              // like/dislike control
-                              if (postfile.likes.who.includes(userid)) lnd.push([1, 0])
-                              else if (postfile.dislikes.who.includes(userid)) lnd.push([0, 1])
-                              else lnd.push([0, 0])
+                        // console.log('517 pid =>', pid); /// 
+                        for (let i = 0; i < posts.length; i++) {
+                           const post = posts[i];
+                           (user.verified) ? isverified.push(1) : isverified.push(0)
+                           usernames.push(user.username)
+                           postfilepath = postpath + post.postid + '.json'
+                           let postfile = await getJSON(postfilepath)
+                           // like/dislike control
+                           if (postfile.likes.who.includes(userid)) lnd.push([1, 0])
+                           else if (postfile.dislikes.who.includes(userid)) lnd.push([0, 1])
+                           else lnd.push([0, 0])
 
-                              // is me control for delete button. [-]
-                              if (postfile.userid === userid) ismine.push(1)
-                              else ismine.push(0)
+                           // is me control for delete button. [-]
+                           if (postfile.userid === userid) ismine.push(1)
+                           else ismine.push(0)
 
 
 
-                              counts.push([postfile.likes.c, postfile.dislikes.c, postfile.comments.c])
-                              if ((i + 1) === posts.length) { // if last item
+                           counts.push([postfile.likes.c, postfile.dislikes.c, postfile.comments.c])
+                           if ((i + 1) === posts.length) { // if last item
 
-                                 res.json({
-                                    // ilerde bunlari tek degiskende gonderebilirsin belki
-                                    status,
-                                    result: posts,
-                                    isverified,
-                                    usernames,
-                                    lnd,
-                                    counts,
-                                    ismine
-                                 })
-                              }
+                              res.json({
+                                 // ilerde bunlari tek degiskende gonderebilirsin belki
+                                 status,
+                                 result: posts,
+                                 isverified,
+                                 usernames,
+                                 lnd,
+                                 counts,
+                                 ismine
+                              })
                            }
-                        } catch (error) {
-                           console.log('541 catch =>', error);
                         }
-                     }
-                     else {
-                        // has not post
-                        let message = 'The person you follow has no post or you\'ve reached to bottom.'
-                        res.json({
-                           status,
-                           result: null,
-                           message
-                        })
+                     } catch (error) {
+                        console.log('541 catch =>', error);
                      }
                   }
                   else {
-                     // user is suspended or private account
-                     console.log('539 no user');
-                     let message = 'The user is suspended or private account.'
+                     // has not post
+                     let message = 'The person you follow has no post or you\'ve reached to bottom.'
+                     res.json({
+                        status,
+                        result: null,
+                        message
+                     })
+                  }
+               }
+               else {
+                  // user is suspended or private account
+                  console.log('539 no user');
+                  let message = 'The user is suspended or private account.'
+                  res.json({
+                     status: 3,
+                     result: null,
+                     message
+                  })
+               }
+            }
+            else if (dl > 1) {
+               userids = profiledata.following.who;
+               var users = await User.find({ userid: userids, visibility: true, suspend: false }).select('username userid verified -_id')
+
+               if (users.length > 0) {
+                  plimit = 10;
+                  let posts = await Post.find({ userid: userids, visibility: true, postid: { $lt: pid } }).limit(plimit).sort({ createdAt: -1 });
+                  // console.log('768 posts =>', posts.length);
+                  if (posts.length > 0) {
+                     // has post
+                     status = 4
+                     pid = posts[posts.length - 1].postid // artirma olayini hallet
+                     // console.log('517 pid =>', pid); /// 
+                     for (let index = 0; index < posts.length; index++) {
+                        post = posts[index];
+                        postfilepath = postpath + post.postid + '.json'
+
+                        is_verified_user = false;
+                        var filteredObj = users.find((item, i) => {
+                           if (item.verified) { is_verified_user = true; return i; }
+                        });
+
+                        var filteredObj = users.find((item2, i) => {
+                           if (item2.userid == post.userid) { post_username = item2.username; return i; }
+                        });
+
+                        postfile = await getJSON(postfilepath)
+                        postObj = {
+                           postid: post.postid,
+                           userid: post.userid,
+                           username: post_username,
+                           post: {
+                              media: [],
+                              article: post.article,
+                              counts: [postfile.likes.c, postfile.dislikes.c, postfile.comments.c],
+                              createdAt: post.createdAt,
+                              updatedAt: post.updatedAt,
+                           },
+                           is_verified_user: is_verified_user,
+                           last_comment: null,
+                           is_liked: postfile.likes.who.includes(userid),
+                           is_disliked: postfile.dislikes.who.includes(userid),
+                        }
+                        result.push(postObj)
+                        if ((index + 1) === posts.length) { // if last item
+                           res.json({
+                              status,
+                              viewer_username: req.session.username,
+                              viewer_userid: req.session.userid,
+                              result
+                           })
+                        }
+                     }
+                  }
+                  else {
+                     let message = "The users you follow do not have any post(s).";
                      res.json({
                         status: 3,
                         result: null,
@@ -758,136 +821,134 @@ app.route('/:username/getpost')
                      })
                   }
                }
-               else if (dl > 1) {
-                  console.log('569');
-                  let message = 'You are following more than 1 guy. this is soon'
+               else {
+                  let message = "The users you follow are suspended.";
                   res.json({
                      status: 3,
                      result: null,
                      message
                   })
+               }
+            }
+            else {
+               // console.log('544'); ///
+               let message = "You don't follow anyone.";
+               res.json({
+                  status: 3,
+                  result: null,
+                  message
+               })
+            }
+         } catch (error) {
+            console.log('err => 494\n', error);
+         }
+      }
+      // if unexpected username
+      else if (!unameReg.test(username)) {
+         let message = 'Wrongusername'
+         res.json({
+            status,
+            result: null,
+            message
+         })
+      }
+      // for profile page
+      else {
+         plimit = 4
+         lnd = []
+         counts = []
+         visibility = []
+         let user = await User.findOne({ username, visibility: true })
+
+         status = 3
+         if (user) {
+            if (!user.suspend) { // user is not suspended
+               if (user.userid === req.session.userid) {
+                  // if is me => true because i will load visibility: false post like 'you set the visibility: false'
+                  posts = await Post.find({ userid: user.userid, postid: { $lt: pid } }).limit(plimit).sort({ createdAt: -1 })
                }
                else {
-                  // console.log('544'); ///
-                  let message = 'You don\'t follow anyone.'
+                  // if is me => false do not load posts that visibility: false OK>
+                  posts = await Post.find({ userid: user.userid, postid: { $lt: pid }, visibility: true }).limit(plimit).sort({ createdAt: -1 })
+               }
+               if (posts.length > 0) {
+                  // has post
+                  isfirst = false // for 'you have no post, share now' and 'you have no more post. let\'s share more'
+                  status = 1
+                  try {
+                     pid = posts[posts.length - 1].postid; // artirma olayini hallet
+
+                     // console.log('624 pid =>', pid); /// 
+                     (user.verified) ? isverified = 1 : isverified = 0;
+                     (user.userid === req.session.userid) ? ismine = 1 : ismine = 0
+                     // posts.forEach((post, index) => {
+
+                     // })
+                     for (let index = 0; index < posts.length; index++) {
+                        post = posts[index];
+                        username = user.username
+                        postfilepath = postpath + post.postid + '.json'
+                        await getJSON(postfilepath).then(postfile => {
+                           // console.log((index + 1) + '. post\'s file. postid: ' + post.postid);
+                           (post.visibility) ? visibility.push(1) : visibility.push(0)
+                           if (postfile.likes.who.includes(userid)) lnd.push([1, 0])
+                           else if (postfile.dislikes.who.includes(userid)) lnd.push([0, 1])
+                           else lnd.push([0, 0])
+                           counts.push([postfile.likes.c, postfile.dislikes.c, postfile.comments.c])
+                           if ((index + 1) === posts.length) { // if last item
+                              res.json({
+                                 // ilerde bunlari tek degiskende gonderebilirsin belki
+                                 status,
+                                 result: posts,
+                                 isverified,
+                                 username,
+                                 lnd,
+                                 counts,
+                                 ismine,
+                                 visibility
+                              })
+                           }
+                        })
+                     }
+                  } catch (error) {
+                     console.log('649 catch =>', error);
+                  }
+               }
+               else {
+                  // has not post
+                  // let message
+
                   res.json({
-                     status: 3,
-                     result: null,
-                     message
+                     status,
+                     result: null
                   })
                }
-            } catch (error) {
-               console.log('err => 494\n', error);
+               // let message = 'user'
+               // res.json({
+               //    status,
+               //    result: null,
+               //    message
+               // })
+            }
+            else {
+               // if user is suspended !!
+               let status = 5;
+               res.json({
+                  status,
+                  result: null,
+               })
             }
          }
-         // if unexpected username
-         else if (!unameReg.test(username)) {
-            let message = 'Wrongusername'
+         else {
+            // if user is not exist
+            let message = 'No user'
             res.json({
                status,
                result: null,
                message
             })
          }
-         // for profile page
-         else {
-            plimit = 4
-            lnd = []
-            counts = []
-            visibility = []
-            let user = await User.findOne({ username, visibility: true })
-
-            status = 3
-            if (user) {
-               if (!user.suspend) { // user is not suspended
-                  if (user.userid === req.session.userid) {
-                     // if is me => true because i will load visibility: false post like 'you set the visibility: false'
-                     posts = await Post.find({ userid: user.userid, postid: { $lt: pid } }).limit(plimit).sort({ createdAt: -1 })
-                  }
-                  else {
-                     // if is me => false do not load posts that visibility: false OK>
-                     posts = await Post.find({ userid: user.userid, postid: { $lt: pid }, visibility: true }).limit(plimit).sort({ createdAt: -1 })
-                  }
-                  if (posts.length > 0) {
-                     // has post
-                     isfirst = false // for 'you have no post, share now' and 'you have no more post. let\'s share more'
-                     status = 1
-                     try {
-                        pid = posts[posts.length - 1].postid; // artirma olayini hallet
-
-                        // console.log('624 pid =>', pid); /// 
-                        (user.verified) ? isverified = 1 : isverified = 0;
-                        (user.userid === req.session.userid) ? ismine = 1 : ismine = 0
-                        // posts.forEach((post, index) => {
-
-                        // })
-                        for (let index = 0; index < posts.length; index++) {
-                           post = posts[index];
-                           username = user.username
-                           postfilepath = postpath + post.postid + '.json'
-                           await getJSON(postfilepath).then(postfile => {
-                              // console.log((index + 1) + '. post\'s file. postid: ' + post.postid);
-                              (post.visibility) ? visibility.push(1) : visibility.push(0)
-                              if (postfile.likes.who.includes(userid)) lnd.push([1, 0])
-                              else if (postfile.dislikes.who.includes(userid)) lnd.push([0, 1])
-                              else lnd.push([0, 0])
-                              counts.push([postfile.likes.c, postfile.dislikes.c, postfile.comments.c])
-                              if ((index + 1) === posts.length) { // if last item
-                                 res.json({
-                                    // ilerde bunlari tek degiskende gonderebilirsin belki
-                                    status,
-                                    result: posts,
-                                    isverified,
-                                    username,
-                                    lnd,
-                                    counts,
-                                    ismine,
-                                    visibility
-                                 })
-                              }
-                           })
-                        }
-                     } catch (error) {
-                        console.log('649 catch =>', error);
-                     }
-                  }
-                  else {
-                     // has not post
-                     // let message
-
-                     res.json({
-                        status,
-                        result: null
-                     })
-                  }
-                  // let message = 'user'
-                  // res.json({
-                  //    status,
-                  //    result: null,
-                  //    message
-                  // })
-               }
-               else {
-                  // if user is suspended !!
-                  let status = 5;
-                  res.json({
-                     status,
-                     result: null,
-                  })
-               }
-            }
-            else {
-               // if user is not exist
-               let message = 'No user'
-               res.json({
-                  status,
-                  result: null,
-                  message
-               })
-            }
-         }
       }
-      else res.json({ status: 0, result: 'not login' })
    })
 
 

@@ -1,21 +1,18 @@
 .danger {
-  color: #f1f1f1;
   background: #d9534f !important;
 }
 .success {
-  color: #f1f1f1;
   background: #5cb85c !important;
 }
 .warning {
-  color: #f1f1f1;
   background: #f0ad4e !important;
 }
 .info {
-  color: #f1f1f1;
   background: #5bc0de !important;
 }
 .popup {
   z-index: 9999;
+  color: #f1f1f1;
   background-color: #303030;
   padding: 20px 15px;
   min-width: 400px;
@@ -45,4 +42,4 @@
 .popupactive {
   opacity: 1;
   bottom: 20px;
-} /*# sourceMappingURL=popup.css.map */
+}

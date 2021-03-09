@@ -9,7 +9,7 @@ $('#loginbtn').on('click', () => {
         message = "Login is successfuly."
         popup(message, 'auto', 'success', 1000)
         setTimeout(() => {
-          window.location.href = "/"+$('#username').val()
+          window.location.href = "/"
         }, 1000);
       }
       else if (res.status === 2) {

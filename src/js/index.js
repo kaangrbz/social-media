@@ -1,7 +1,6 @@
-
-
 verifiedTag = '<span class="verified" title="Verified account"><i class="far fa-check-circle"></i></span>'
-
+saveTag = '<img src="/img/save.svg" alt="savetag">Save';
+savedTag = '<img src="/img/saved.svg" alt="unsavetag">Unsave';
 ///////////////////////////////// gotopbtn ////////////////////////////
 //Get the button
 let tag = document.querySelector('html');
@@ -244,10 +243,10 @@ function save(e) {
       popup(message, 'auto', 'warning', 3000)
     }
     else if (res.status === 1) {
-      $(e).html('<img data-src="/img/saved.svg" class="lazyload" alt="saved-btn">Saved')
+      $(e).html(savedTag)
     }
     else if (res.status === 2) {
-      $(e).html('<img data-src="/img/save.svg" class="lazyload" alt="save-btn">Save')
+      $(e).html(saveTag)
     }
     else if (res.status === 3) {
       message = res.message
@@ -599,7 +598,7 @@ $('.report-btn').on('click', (e) => {
       }
       else if (res.status === 1) {
         message = `Successfuly reported. Your reportid: ` + res.reportid
-        popup(message, 'popup', 'success')
+        popup(message, 'popup', 'info')
       }
       else if (res.status === 2) {
         message = res.message

@@ -14,12 +14,12 @@
     <ul>
       <!-- markasread -->
       <%- (locals.ncount && ncount> 0 ) ? `<a href="javascript:void(0)" class="markasread"
-          title="Mark all notifications as read"><i class="fas fa-book-open"></i>Mark all as read</a>`: '' %>
+          title="Mark all notifications as read"><i class="fas fa-check-double"></i>Mark all as read</a>`: '' %>
     </ul>
   </div>
   <a class="logout" href="/logout" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
   <div class="profile">
-    <a href="/<%=u1 %>"><img class="lazyload" data-src="/img/profile1.jpg" alt="right profile"></a>
+    <a href="/<%=u1 %>"><img src="/img/profile1.jpg" alt="right profile"></a>
   </div>
   <% }else{ %>
     <a href="/login" title="Login">
