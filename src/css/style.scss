@@ -138,24 +138,24 @@ $svgspinsec: 14s;
       width: 100%;
       margin: 0;
       margin-top: 10px;
-      padding: 10px 10px !important;
+      padding: 10px 0px 10px 10px;
       border-radius: 3px;
       background: #171717;
       color: #f1f1f1;
       z-index: 99;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: 500ms all;
+      flex-direction: column;
+      transition: 300ms all;
       opacity: 0;
       visibility: hidden;
+      align-items: center;
+      justify-content: center;
       .markasread {
         font-size: 14px;
-        padding-top: 0;
-        display: block;
-        width: 100%;
+        margin-bottom: 10px;
+        display: none;
+        width: auto;
         text-align: right;
-        // border-bottom: 1px solid #f1f1f1;
         border-radius: 0px;
         transition: 300ms all;
         cursor: pointer;
@@ -167,7 +167,7 @@ $svgspinsec: 14s;
         width: 100%;
       }
       .notifloading {
-        display: block;
+        display: none;
         width: 50px;
         height: 50px;
         margin: 0 auto;
@@ -203,7 +203,7 @@ $svgspinsec: 14s;
           margin-right: 10px;
         }
         i[class="fas fa-heart"] {
-          color: #f00 !important;
+          color: #ff0000 !important;
         }
         i[class="far fa-sad-tear"] {
           margin-left: 10px !important;

@@ -1,1 +1,1 @@
-{"userid":10000001,"likes":{"c":1,"who":[10000001]},"dislikes":{"c":0,"who":[]},"comments":{"c":0,"who":[]},"postid":10000004}
+{"userid":10000001,"likes":{"c":3,"who":[10000004,10000002,10000001]},"dislikes":{"c":0,"who":[]},"comments":{"c":1,"who":[{"userid":10000002,"message":"sa kardesim","createdAt":"2021-03-10T20:37:00.586Z","updatedAt":"2021-03-10T20:37:00.586Z"}]},"postid":10000004}

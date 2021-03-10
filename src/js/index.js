@@ -36,15 +36,6 @@ function randombgcolor() {
 setInterval(randombgcolor,1100);
 */
 
-$('.notif').on('click', (e) => {
-  if ($('.notifications').css('opacity') != '0') {
-    $('.notifications').addClass('active')
-  }
-  else {
-    $('.notifications').removeClass('active')
-  }
-})
-
 $('.more').on('click', (e) => {
 
   more(e.currentTarget)
@@ -333,7 +324,7 @@ function update(e) {
         }
       })
       $('.alt').on('click', (e) => {
-        i.val(e.currentTarget.textContent) // i => input 
+        i.val(e.currentTarget.textContent) // i => input
       })
       $(e).removeAttr('disabled')
     }
@@ -424,25 +415,27 @@ function report(e) {
   }
 }
 
-let ad = true
-$('.notif').on('click', (e) => {
-  url = '/notif/'
-  $('.notifications').toggleClass('active')
-  $('.ncount').hide(200)
-  if (ad && $('.notifications').css('opacity') == '0') {
-    ad = false
-    notifloading = $('.notifloading')
-    notifloading.show(200)
-    ntag = $('.notifications ul')
-    $.post(url, res => {
-      console.log('notif res => ', res.status);
+
+
+
+
+
+var xhr = '';
+
+var timeout;
+function getNotif() {
+  var res;
+  var xhr = $.ajax({
+    type: "POST",
+    url,
+    success: (res) => {
+      n_loading.hide();
+      $('.markasread').show();
       if (res.status === 0) {
         message = `You should login for this <a href="/login">Let's login</a>`
         popup(message, 'auto', 'warning', 3000)
       }
       else if (res.status === 1 || res.status == 2) {
-        notifloading.hide()
-        if (res.status === 2) ad = true;
         result = res.result
         if (result.length > 0) {
           var limit = 11;
@@ -451,52 +444,63 @@ $('.notif').on('click', (e) => {
               uname = res.users[index];
               uname = ((uname.length > limit) ? uname.substring(0, limit) + '..' : uname)
               switch (n.ncode) {
-                case 1:
-                  t = `<li><a href="/post/` + n.postid + `"><i class="fas fa-heart"></i><b>
-                  `+ uname + `
-                </b>liked your post </a><span class="ntime">
-                                  `+ res.dates[index] + `
-                                </span></li>`
-                  ntag.append(t)
-                  break;
-
-                case 2:
-                  t = `<li><a title="Go to ` + uname + `\'s profile" href="/` + uname + `"><i class="fas fa-user-plus"></i><b>
-                    `+ uname + `
-                  </b>started to follow you</a><span title="" class="ntime">
-                                    `+ res.dates[index] + `
-                                  </span></li>`
-                  ntag.append(t)
-                  break;
-
-                case 3:
-                  t = `<li><a href="/post/` + n.postid + `"><i class="fas fa-comment"></i><b>
-                  `+ uname + `
-                </b> commented on your post</a><span class="ntime">
-                                  `+ res.dates[index] + `
-                                </span></li>`
-                  ntag.append(t)
-                  break;
+                case 1: t = `<li><a href="/post/` + n.postid + `"><i class="fas fa-heart"></i><b>` + uname + `</b>liked your post </a><span class="ntime">` + res.dates[index] + `</span></li>`; ntag.append(t); break;
+                case 2: t = `<li><a title="Go to ` + uname + `\'s profile" href="/` + uname + `"><i class="fas fa-user-plus"></i><b>` + uname + `</b>started to follow you</a><span title="" class="ntime">` + res.dates[index] + `</span></li>`; ntag.append(t); break;
+                case 3: t = `<li><a href="/post/` + n.postid + `"><i class="fas fa-comment"></i><b>` + uname + `</b> commented</a><span class="ntime">` + res.dates[index] + `</span></li>`; ntag.append(t); break;
               }
             });
           } catch (error) {
-            t = `<li><a href="" onclick="location.reload()">There is an error please refresh the page</a><br>err: ` + error + `</li>`
+            t = `<li><a href="" onclick="location.reload()">There is an error please refresh the page</a><br>err: ` + error + `</li>`;
             ntag.append(t)
           }
         }
         else {
-          t = `<li><a href="javascript:void(0)">You have no notification, yet..<i class="far fa-sad-tear"></i></a></li>`
+          t = `<li><a href="javascript:void(0)">You have no notification, yet..<i class="far fa-sad-tear"></i></a></li>`;
           ntag.append(t)
         }
 
       }
       else if (res.status === 3) {
-        notifloading.hide()
-        message = res.message + ' Please <a href="javascript:void(0)" onclick="location.reload()">refresh</a> the page.'
+        n_loading.hide()
+        message = res.message + ' Please <a href="javascript:void(0)" onclick="location.reload()">refresh the page.</a>';
         popup(message, 'popup', 'danger')
       }
-    })
+    },
+    error: (e) => {
+      console.log(e);
+    }
+  });
+
+}
+function runFunc() {
+  var delay = 100;
+  $('.markasread').hide();
+  timeout = setTimeout(getNotif, delay);
+}
+function clearFunc() {
+  clearTimeout(timeout);
+}
+let is_clicked_notif = false;
+$('.notif').on('click', (e) => {
+  url = '/notif/'; n_loading = $('.notifloading'); ntag = $('.notifications ul'); $('.notifications').toggleClass('active'); 
+
+  console.log('is clicked notif =>', is_clicked_notif);
+  if (!is_clicked_notif) {
+    $('.notifications ul').empty();
+    is_clicked_notif = true;
+    $('.notifloading').show(10);
+    
+    runFunc()
   }
+  else {
+    is_clicked_notif = false;
+    clearFunc()
+  }
+
+
+
+
+  $('.ncount').hide(100)
 });
 
 markasread = true
