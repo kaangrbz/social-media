@@ -28,18 +28,18 @@ $(window).on('load', () => {
 })
 
 var sj = true
-verifiedTag = '<span class="verified" title="Verified account"><i class="far fa-check-circle"></i></span>'
-hiddenTag = '<span class="hidden" title="Hidden post, just you can see this post"><i class="far fa-eye-slash"></i></span>'
-// bannerTag = '<div class="banner"><a href="https://tr.link/ref/devkaan"><img class="" src="//cdn.tr.link/img/728x90.png" title="Para Kazanmak İçin Tıkla Kayıt OL" /></a></div>'
-shareTag = '<a class="share" title="Share post" href="javascript:void(0)"><img class="" src="/img/share.svg" alt="">Share</a>'
-reportTag = '<a class="report" title="Report post" href="javascript:void(0)"><img class="" src="/img/report.svg" alt="">Report</a>'
-saveTag = '<a class="save" title="Save post" href="javascript:void(0)"><img class="" src="/img/save.svg" alt="">Save</a>'
-deleteTag = '<a class="del" title="Delete post" href="javascript:void(0)"><img src="/img/delete.svg" alt="">Delete</a>'
+verifiedTag = '<span class="verified" title="Verified account"><i class="far fa-check-circle"></i></span>';
+hiddenTag = '<span class="hidden" title="Hidden post, just you can see this post"><i class="far fa-eye-slash"></i></span>';
+// bannerTag = '<div class="banner"><a href="https://tr.link/ref/devkaan"><img src="//cdn.tr.link/img/728x90.png" title="Para Kazanmak İçin Tıkla Kayıt OL" /></a></div>'
+shareTag = '<a class="share" title="Share post" href="javascript:void(0)"><img src="/img/share.svg" alt="share">Share</a>';
+reportTag = '<a class="report" title="Report post" href="javascript:void(0)"><img src="/img/report.svg" alt="report">Report</a>';
+new_saveTag = '<a class="save" title="Save post" href="javascript:void(0)"><img src="/img/save.svg" alt="save">Save</a>';
+deleteTag = '<a class="del" title="Delete post" href="javascript:void(0)"><img src="/img/delete.svg" alt="delete">Delete</a>';
 bannerTag = ''
 function getpost() {
   var y = $(window).scrollTop();
   var adlimit = 4
-  if ($(location).attr('pathname') !== '/') {
+  if ($(location).attr('pathname') != '/') {
     url = $(location).attr('pathname') + '/getpost/'
   }
   else {
@@ -61,57 +61,51 @@ function getpost() {
         // for profile page
         else if (res.status === 1 || res.status === 2) {
           try {
-            r = res.result
-            lnd = res.lnd
-            counts = res.counts
-            r.forEach((post, index) => {
-              // if ((index + 1) % adlimit === 0) {
+            r = res.result;
+            r.forEach((current_item, index) => {
+              // if ((index + 1) === adlimit) {
+              //   adlimit = 0
               //   $('.posts').append(bannerTag)
               // }
 
-              postid = post.postid
-              f = '.post[data-post-id=' + postid + ']'
-              b = $(f + ' .options div[class!=arrow]');
-              hidden = '<a title="Hide post" class="visibility" href="javascript:void(0)"><i class="far fa-eye"></i> Make visible</a>';
-              visible = '<a title="Make the post visible" class="visibility" href="javascript:void(0)"><i class="far fa-eye-slash"></i> Make hidden</a>';
-              d = new Date(post.createdAt)
-              hour = d.getHours(), min = d.getMinutes(), day = d.getDate(), month = d.getMonth() + 1, hour = (hour < 10) ? '0' + hour : hour
-              min = (min < 10) ? '0' + min : min, day = (day < 10) ? '0' + day : day, month = (month < 10) ? '0' + month : month
-              dd = day + '.' + month + '.' + String(d.getFullYear()).substring(2) + ' ' + hour + ':' + min
+              counts = current_item.post.counts;
+              is_liked = current_item.is_liked;
+              is_disliked = current_item.is_disliked;
+              postid = current_item.postid;
 
-
-              a = `<div class="post" style="display: none;" data-post-id="` + postid + `"><div class="header">
+              d = new Date(current_item.post.createdAt)
+              h = d.getHours()
+              m = d.getMinutes()
+              h = h <= 9 ? '0' + h : h;
+              m = m <= 9 ? '0' + m : m;
+              dd = d.getDate() + '.' + d.getMonth() + '.' + d.getFullYear() + ' ' + h + ':' + m
+              // `+ ((lnd[index][0]) ? `<img class="like" src="/img/arrow2.svg" alt="">` : `<img class="like" src="/img/arrow.svg" alt="">`) + `
+              // `+ ((lnd[index][1]) ? `<img class="dislike" src="/img/arrow2.svg" alt="">` : `<img class="dislike" src="/img/arrow.svg" alt="">`) + `
+              a = `<div class="post"  style="display: none;" data-post-id="` + postid + `"><div class="header">
             <div class="user">
               <img class="lazyload" data-src="/img/80x80.jpg" alt="user profile">
               <div class="u">
-                <a href="/` + res.username + `">
-                  ` + res.username + `
-                  </a>
-                  `+ ((res.isverified) ? verifiedTag : '') + `
-                `+ ((!res.visibility[index]) ? hiddenTag : '') + `
+                <a href="/` + current_item.username + `">
+                  ` + current_item.username + (current_item.is_verified_user ? verifiedTag : '') + `
+                </a>
                 <div class="pdate">
                 ` + dd + `
                 </div>
               </div>
             </div>
-            <div class="more" title="Options">
+            <div class="more">
               <i class="fas fa-ellipsis-h"></i>
             </div>
             <div class="options">
-              <div class="arrow"></div>
+              <div class="arrow"> </div>
               <div>
-                `+ ((res.ismine) ? deleteTag : '') + `
-                `+ shareTag + `               
-                `+ reportTag + ` 
-                `+ saveTag + `               
-                `+ ((res.ismine) ? (res.visibility[index] ? visible : hidden) : '') + `
+              `+ shareTag + reportTag + new_saveTag + (current_item.is_me ? deleteTag : '') + `
               </div>
             </div>
           </div>
           <div class="article">
             <p class="ptext">
-        
-            ` + post.article + `
+            ` + current_item.post.article + `
             </p>
             <div class="pmedia" style="display: none;">
               <img class="lazyload" src="" alt="post img">
@@ -119,28 +113,26 @@ function getpost() {
           </div>
           <div class="buttons">
           
-          `+ (res.lnd[index][0] ?
+          `+ (is_liked ?
                   '<img class="like" src="/img/arrow2.svg" alt="button">'
                   :
-                  '<img class="like" src="/img/arrow.svg" alt="button">') + `
-          
-          `+ (res.lnd[index][1] ?
-                  '<img class="dislike" src="/img/arrow2.svg" alt="button">'
-                  :
-                  '<img class="dislike" src="/img/arrow.svg" alt="button">') + `
+                  '<img class="like" src="/img/arrow.svg" alt="button">') + (is_disliked ?
+                    '<img class="dislike" src="/img/arrow2.svg" alt="button">'
+                    :
+                    '<img class="dislike" src="/img/arrow.svg" alt="button">') + `
           </div>
-        
+
           <div class="buttons">
             +<span class="likes` + postid + `">
-            `+ counts[index][0] + `
+            `+ counts[0] + `
             </span>
             /
             -<span class="dislikes` + postid + `">
-            `+ counts[index][1] + `
+            `+ counts[1] + `
             </span>
           </div>
-          <span class="commentcount">
-          `+ counts[index][2] + `&nbsp;comment
+          <span class="commentcount"><span class="c">
+          `+ counts[2] + `</span>comment
           </span>
           <div class="comments">
             <div class="comment">
@@ -152,11 +144,14 @@ function getpost() {
               <input type="text">
               <button type="button" class="send">Send</button>
             </form>
-          </div></div>`
+          </div>
+          </div>`
 
               // profile page
               $('.posts').append(a)
-              $(f).show(100)
+              f = '.post[data-post-id=' + postid + ']'
+              $(f).show(400)
+              b = $('.post .options')
               $(f + ' .like').on('click', (e) => { like(e.currentTarget) })
               $(f + ' .more').on('click', (e) => { more(e.currentTarget) })
               $(f + ' .dislike').on('click', (e) => { dislike(e.currentTarget) })
@@ -172,7 +167,7 @@ function getpost() {
                 share(e)
               })
               $(f + ' .visibility').on('click', (e) => { console.log('soon'); })
-            })
+            });
           } catch (error) {
             $('.posts').append('Upload post error, Please refresh the page err:<br>' + error)
           }
@@ -222,9 +217,7 @@ function getpost() {
             <div class="options">
               <div class="arrow"> </div>
               <div>
-              `+ shareTag + `               
-              `+ reportTag + ` 
-              `+ saveTag + `        
+              `+ shareTag + reportTag + new_saveTag + `        
               </div>
             </div>
           </div>
@@ -240,14 +233,14 @@ function getpost() {
           <div class="buttons">
           
           `+ (is_liked ?
-                  '<img class=" like" src="/img/arrow2.svg" alt="button">'
+                  '<img class="like" src="/img/arrow2.svg" alt="button">'
                   :
-                  '<img class=" like" src="/img/arrow.svg" alt="button">') + `
+                  '<img class="like" src="/img/arrow.svg" alt="button">') + `
           
           `+ (is_disliked ?
-                  '<img class=" dislike" src="/img/arrow2.svg" alt="button">'
+                  '<img class="dislike" src="/img/arrow2.svg" alt="button">'
                   :
-                  '<img class=" dislike" src="/img/arrow.svg" alt="button">') + `
+                  '<img class="dislike" src="/img/arrow.svg" alt="button">') + `
           </div>
         
           <div class="buttons">

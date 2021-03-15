@@ -38,15 +38,17 @@
       </div>
       <div class="center">
         <div class="centercont">
+          <h2>Explore tha WORLD!</h2>
+          <br>
           <%- include('inc/banner.ejs') %>
             <%- include('inc/sendpost.ejs') %>
-              <div class="posts">
-                <%- (locals.message) ? message : 'We could not find page that you were searched' %>
-              </div>
-              <!-- <div class="loading">
+              <div class="posts"></div>
+              <div class="loading">
                 <img src="/img/bird.gif" alt="loadinggif">
-              </div> -->
+              </div>
         </div>
+
+        <div class="cright">right</div>
 
 
       </div>
@@ -63,6 +65,7 @@
           <script src="/js/theme.min.js"></script>
           <script src="/js/fontawesome.js"></script>
           <script src="/js/index.js"></script>
+          <script src="/js/post.js"></script>
           <script src="/js/addpost.js"></script>
           <script src="/js/popup.js"></script>
           <!-- <script src="/js/browser_notifs.js"></script> -->

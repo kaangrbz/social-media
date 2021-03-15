@@ -4,8 +4,9 @@
   <span><i class="fas fa-sun"></i></span>
 </label>
 <% if(locals.u1){%>
+  <a class="explore" href="/explore" title="Explore tha WORLD!"><i class="far fa-compass"></i></a>
   <div class="notif" title="Notifications">
-    <i class="far fa-bell" id="bell"></i>
+    <i class="far fa-bell bold"></i>
     <div class="ncount"><%= (locals.ncount) ? ncount : '' %></div>
 
   </div>

@@ -93,14 +93,30 @@ $svgspinsec: 14s;
       margin-right: 15px;
     }
     .profile img {
-      max-width: 100px;
-      max-height: 100px;
+      max-width: 60px;
+      max-height: 60px;
       border-radius: 50%;
     }
     .logout {
       display: block;
       font-size: 20px;
-      color: #353535;
+      color: #121212;
+    }
+    $expPx: 30px;
+    .explore {
+      width: $expPx;
+      height: $expPx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      line-height: 25px;
+      color: #121212;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+      border-radius: 50%;
     }
     .notif {
       position: relative;
@@ -109,8 +125,8 @@ $svgspinsec: 14s;
       font-size: 18px;
       .ncount {
         position: absolute;
-        top: -4px;
-        right: 0;
+        top: -2px;
+        right: -4px;
         color: white;
         background-color: #c00;
         width: 18px;
@@ -126,9 +142,11 @@ $svgspinsec: 14s;
       }
     }
     .notifications {
+      opacity: 0;
+      visibility: hidden;
       position: absolute;
       top: calc(50% + 20px) !important;
-      right: -100px;
+      right: -140px;
       transform: translateX(-50%);
       min-width: 500px;
       max-width: 600px;
@@ -146,8 +164,6 @@ $svgspinsec: 14s;
       display: flex;
       flex-direction: column;
       transition: 300ms all;
-      opacity: 0;
-      visibility: hidden;
       align-items: center;
       justify-content: center;
       .markasread {
@@ -214,6 +230,7 @@ $svgspinsec: 14s;
         display: flex;
         align-items: center;
         flex-direction: row;
+        word-wrap: break-word;
         padding: 5px;
         padding-left: 0px;
         color: #f1f1f1;
@@ -1248,7 +1265,7 @@ hr {
   justify-content: center;
   align-items: center;
   position: fixed;
-  left: 50%; // for .share-active
+  left: 50%;
   top: -999px;
   transform: translate(-50%, -50%);
   transition: 300ms all;
@@ -1494,4 +1511,7 @@ hr {
   opacity: 1;
   visibility: visible;
   bottom: 0px;
+}
+.bold {
+  font-weight: bold !important;
 }

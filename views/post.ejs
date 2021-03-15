@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('inc/metatag.ejs') %>
+    <meta name="google-site-verification" content="KiRRxA551B0Uj9qczyJk5lMrc8oBy81gxr_elklHGb8" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/popup.css">
+
+    <title>PROJECT2</title>
+</head>
+
+<body>
+  <div class="cont">
+    <%- include('inc/site_version.ejs') %>
+      <div class="header">
+        <div class="headercont">
+          <div class="logo">
+            <%- include('inc/logo.ejs') %>
+          </div>
+          <div class="search" title="Search something">
+            <input type="text" name="search" id="search" placeholder="Write something">
+            <span class="searchbtn">
+              <i class="fas fa-search"></i>
+            </span>
+            <div class="results">
+              <img class="lazyload searchloading" data-src="/img/loading.gif" alt="search loading gif">
+              <span><a href="/kaan">kaan</a></span>
+              <span><a href="/kaan1">kaan1</a></span>
+              <span><a href="/kaan23">kaan23</a></span>
+              <span><a href="/kaan4112">kaan4112</a></span>
+            </div>
+          </div>
+          <div class="right">
+            <%- include('inc/header_right.ejs') %>
+          </div>
+        </div>
+      </div>
+      <div class="center prof">
+        <div class="centercont">
+          <%- (locals.message) ? message:null %>
+            <%- include('inc/banner.ejs') %>
+              <%- include('inc/sendpost.ejs') %>
+                <div class="posts">
+                  <% if (locals.result) { %>
+                    <div class="post" data-post-id="<%= (locals.result.postid) ? result.postid : 0 %>">
+                      <div class="header">
+                        <div class="user">
+                          <img class="lazyload" data-src="/img/80x80.jpg" alt="user profile">
+                          <div class="u">
+                            <a href="/<%= (locals.result.username) ? result.username : '' %>">
+                              <%= (locals.result.username) ? result.username : '' %>
+                            </a>
+                            <div class="pdate">
+                              <% if(locals.result.post.createdAt) { d=new Date(result.post.createdAt); h=d.getHours();
+                                m=d.getMinutes(); h=h <=9 ? '0' + h : h; m=m <=9 ? '0' + m : m; dd=d.getDate() + '.' +
+                                d.getMonth() + '.' + d.getFullYear() + ' ' + h + ':' + m } %>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="more">
+                          <i class="fas fa-ellipsis-h"></i>
+                        </div>
+                        <div class="options">
+                          <div class="arrow"> </div>
+                          <div>
+                            <a class="share" title="Share post" href="javascript:void(0)"><img src="/img/share.svg"
+                                alt="share">Share</a>
+                            <a class="report" title="Report post" href="javascript:void(0)"><img src="/img/report.svg"
+                                alt="report">Report</a>
+                            <a class="save" title="Save post" href="javascript:void(0)"><img src="/img/save.svg"
+                                alt="save">Save</a>
+                            <a class="del" title="Delete post" href="javascript:void(0)"><img src="/img/delete.svg"
+                                alt="delete">Delete</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="article">
+                        <p class="ptext">
+                          <%= (locals.result.post.article) ? result.post.article : '' %>
+                        </p>
+                        <div class="pmedia" style="display: none;">
+                          <img class="lazyload" src="" alt="post img">
+                        </div>
+                      </div>
+                      <div class="buttons">
+
+                        <%- (locals.result.is_liked ? '<img class="like" src="/img/arrow2.svg" alt="button">'
+                          : '<img class="like" src="/img/arrow.svg" alt="button">' ); %>
+                          <%- (locals.result.is_disliked ? '<img class="dislike" src="/img/arrow2.svg" alt="button">'
+                            : '<img class="dislike" src="/img/arrow.svg" alt="button">' ) %>
+                      </div>
+
+                      <div class="buttons">
+                        +<span class="likes<%= (locals.result.postid) ? result.postid: '' %>">
+                          <%= (locals.result.post.counts) ? result.post.counts[0] : '' %>
+                        </span>
+                        /
+                        -<span class="dislikes<%= (locals.result.postid) ? result.postid: '' %>">
+                          <%= (locals.result.post.counts) ? result.post.counts[1] : '' %>
+                        </span>
+                      </div>
+                      <span class="commentcount"><span class="c">
+                          <%= (locals.result.post.counts) ? result.post.counts[2] : '' %>
+                        </span>comment
+                      </span>
+                      <div class="comments">
+                        <div class="comment">
+                        </div>
+                      </div>
+
+                      <div class="sendcomment">
+                        <form onsubmit="return false">
+                          <input type="text">
+                          <button type="button" class="send">Send</button>
+                        </form>
+                      </div>
+                    </div>
+                    <% } %>
+                </div>
+                <!-- <div class="loading">
+                  <img src="/img/bird.gif" alt="loadinggif">
+                </div> -->
+        </div>
+
+        <div class="cright" style="display: none;">Maybe infos about post owner</div>
+
+
+      </div>
+  </div>
+  <%- include('inc/share.ejs') %>
+    <%- include('inc/report.ejs') %>
+      <%- include('inc/popup.ejs') %>
+        <%- include('inc/cookie.ejs') %>
+          <i onclick="topFunction()" id="gotopbtn" title="Go to top" class="fas fa-arrow-up"></i>
+
+          <script src="/js/jquery.min.js"></script>
+          <script src="/js/lazysizes.min.js" async></script>
+          <script src="/js/theme.min.js"></script>
+          <script src="/js/fontawesome.js"></script>
+          <script src="/js/index.js"></script>
+          <script src="/js/addpost.js"></script>
+          <script src="/js/popup.js"></script>
+          <!-- <script src="/js/browser_notifs.js"></script> -->
+          <script src="/js/utm_source.js"></script>
+</body>
+
+</html>

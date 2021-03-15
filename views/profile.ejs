@@ -20,7 +20,7 @@
 						<%- include('inc/logo.ejs') %>
 					</div>
 					<div class="search">
-						<input type="text" name="search" id="search" placeholder="search box to here">
+						<input type="text" name="search" id="search" placeholder="Write something">
 						<span class="searchbtn">
 							<i class="fas fa-search"></i>
 						</span>
@@ -67,9 +67,8 @@
 								</div>
 								<div class="pstatus">
 									<a href="#">
-										<% console.log(pcount) %>
 											<div class="pcount">
-												<%= (locals.pcount || pcount===0) ? pcount : 'null' %>
+												<%= (locals.pcount) ? ((locals.pcount==0) ? pcount : '0' ): '0' %>
 											</div>posts
 									</a>
 									<a href="#">
@@ -97,19 +96,19 @@
 			<%- include('inc/share.ejs') %>
 				<%- include('inc/report.ejs') %>
 					<%- include('inc/popup.ejs') %>
-					<%- include('inc/cookie.ejs') %> 
-						<i onclick="topFunction()" id="gotopbtn" title="Go to top" class="fas fa-arrow-up"></i>
+						<%- include('inc/cookie.ejs') %>
+							<i onclick="topFunction()" id="gotopbtn" title="Go to top" class="fas fa-arrow-up"></i>
 
-						<script src="/js/jquery.min.js"></script>
+							<script src="/js/jquery.min.js"></script>
 
-						<script src="/js/lazysizes.min.js" async></script>
-						<script src="/js/post.js"></script>
-						<script src="/js/theme.min.js"></script>
-						<script src="/js/fontawesome.js"></script>
-						<script src="/js/index.js"></script>
-						<script src="/js/addpost.js"></script>
-						<script src="/js/popup.js"></script>
-						<script src="/js/utm_source.js"></script>
+							<script src="/js/lazysizes.min.js" async></script>
+							<script src="/js/post.js"></script>
+							<script src="/js/theme.min.js"></script>
+							<script src="/js/fontawesome.js"></script>
+							<script src="/js/index.js"></script>
+							<script src="/js/addpost.js"></script>
+							<script src="/js/popup.js"></script>
+							<script src="/js/utm_source.js"></script>
 </body>
 
 </html>

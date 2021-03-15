@@ -9,7 +9,9 @@ $('#loginbtn').on('click', () => {
         message = "Login is successfuly."
         popup(message, 'auto', 'success', 1000)
         setTimeout(() => {
-          window.location.href = "/"
+          // window.location.href = "/"+$('input[type=text][name=username]').val();
+          // window.location.href = "/";
+          window.location.href = "/";
         }, 1000);
       }
       else if (res.status === 2) {
@@ -36,7 +38,7 @@ $('#signupbtn').on('click', (e) => {
         message = "Signup is successfuly."
         popup(message, 'auto', 'success', 1000)
         setTimeout(() => {
-          window.location.href = "/"
+          window.location.href = "/login"
         }, 1000);
       }
       else if (res.status === 2) {
@@ -44,7 +46,7 @@ $('#signupbtn').on('click', (e) => {
         message = res.message
         popup(message, 'auto', 'warning', 3000)
         let interval = setInterval(function () {
-          $(e).html('Sign up again in (' + counter + 's)')
+          $(e).html('Try again in (' + counter + 's)')
           if (counter == 0) {
             $(e).removeClass('disabled')
             $(e).removeAttr('disabled')

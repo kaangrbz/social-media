@@ -497,9 +497,6 @@ $('.notif').on('click', (e) => {
     clearFunc()
   }
 
-
-
-
   $('.ncount').hide(100)
 });
 
