@@ -324,7 +324,7 @@ app.route('/signup')
             .then(ucount => {
                if (!ucount) {
                   const count = new Count(countObj).save()
-                  userObj.userid = countObj.userid // const
+                  userObj.userid = countObj.users // const
                }
                else {
                   userObj.userid = ucount.users + 1
