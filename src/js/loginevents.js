@@ -5,7 +5,7 @@ $('#loginbtn').on('click', () => {
     url = '/login'
     data = $('#loginform').serialize()
     $.post(url, data, res => {
-      if (res.status === 1) {
+      if (res.success == 1) {
         message = "Login is successfuly."
         popup(message, 'auto', 'success', 1000)
         setTimeout(() => {
@@ -14,9 +14,9 @@ $('#loginbtn').on('click', () => {
           window.location.href = "/";
         }, 1000);
       }
-      else if (res.status === 2) {
+      else if (res.error == 1) {
         message = res.message
-        popup(message, 'auto', 'warning', 3000)
+        popup(message, 'auto', 'warning', 4000)
       }
     })
     isclickedLogin = false
@@ -30,21 +30,19 @@ $('#signupbtn').on('click', (e) => {
     isclickedSignup = true
     url = '/signup'
     data = $('#signupform').serialize()
-    $(e).attr('disabled', 'disabled')
+    // $(e).attr('disabled', 'disabled')
     input = $('input[type=text][name=username]')
     let counter = 5;
     $.post(url, data, res => {
-      if (res.status === 1) {
+      if (res.success === 1) {
         message = "Signup is successfuly."
         popup(message, 'auto', 'success', 1000)
         setTimeout(() => {
           window.location.href = "/login"
         }, 1000);
       }
-      else if (res.status === 2) {
+      else if (res.error === 1) {
         $(e).addClass('disabled')
-        message = res.message
-        popup(message, 'auto', 'warning', 3000)
         let interval = setInterval(function () {
           $(e).html('Try again in (' + counter + 's)')
           if (counter == 0) {
@@ -55,37 +53,31 @@ $('#signupbtn').on('click', (e) => {
           }
           counter--;
         }, 1000);
-      }
-      else if (res.status === 3) {
-        $(e).addClass('disabled')
-        let alts = res.alternatives
-        f = true
-        message = res.message
-        popup(message, 'auto', 'warning', 4500)
-        adiv = $('.alts')
-        let interval = setInterval(function () {
-          $(e).html('Sign up again in (' + counter + 's)')
-          if (counter == 0) {
-            $(e).removeClass('disabled')
-            $(e).removeAttr('disabled')
-            $(e).html('Sign up')
-            clearInterval(interval);
-          }
-          counter--;
-        }, 1000);
-        alts.forEach(alt => {
-          if (alt !== null) {
-            if (f) {
-              f = false
-              adiv.append('Some alternatives: ')
+
+        if(res.alternatives){
+          let alts = res.alternatives
+          f = true
+          message = res.message
+          popup(message, 'auto', 'warning', 4500)
+          adiv = $('.alts')
+          alts.forEach(alt => {
+            if (alt !== null) {
+              if (f) {
+                f = false
+                adiv.append('Some alternatives: ')
+              }
+              a = '<span class="alt" style="margin-right:8px">' + alt + '</span>'
+              adiv.append(a)
             }
-            a = '<span class="alt" style="margin-right:8px">' + alt + '</span>'
-            adiv.append(a)
-          }
-        })
-        $('.alt').on('click', (ee) => {
-          input.val(ee.currentTarget.textContent) // i => input 
-        })
+          })
+          $('.alt').on('click', (ee) => {
+            input.val(ee.currentTarget.textContent) // i => input 
+          })
+        }
+        else{ // have no alternatives but there is error
+          message = res.message
+          popup(message, 'auto', 'warning', 3000)
+        }
       }
       else {
         message = 'There is an critical error. Please tell me this error <a href="mailto:abdikaangrbz@gmail.com">at here</a>'

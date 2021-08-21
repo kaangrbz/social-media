@@ -39,7 +39,7 @@
 							<div class="pname">
 								<div>
 									<img class="lazyload" data-src="/img/profile2.jpg" alt="">
-									<div>
+									<div class="username">
 										<%= (locals.username) ? username : 'null' %>
 											<%- (locals.verified)
 												? '<span class="verified" title="Verified account"><i class="far fa-check-circle"></i></span>'
@@ -78,15 +78,22 @@
 						<div class="edit">
 							<div class="editcont">
 								<div class="msg"></div>
-
+								
 								<form method="POST" onsubmit="return false" action="" id="updateform">
+									<span>Your userid is: <b><%= (locals.userid) ? userid : '' %></b></span>
+									<br>
+									<br>
 									<input type="file" disabled name="profile">
+									<span>Username</span>
 									<input type="text" value="<%= (locals.username) ? username : '' %>" name="username"
 										placeholder="username">
 									<div class="alts"></div>
+									<span>Email</span>
 									<input type="text" value="<%= (locals.email) ? email : '' %>" name="email" placeholder="email">
+									<span>Fullname</span>
 									<input type="text" value="<%= (locals.fullname) ? fullname : '' %>" name="fullname"
 										placeholder="full name">
+									<span>Biography (optional)</span>
 									<textarea name="biography" placeholder="biography" id="textarea" cols="30" rows="10"
 										maxlength="500"><%= (locals.biography) ? biography : '' %></textarea>
 									<div id="count"></div>

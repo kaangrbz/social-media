@@ -92,23 +92,6 @@ const postSchema = new Schema({
 
 const Post = mongoose.model('Post', postSchema);
 
-const countSchema = new Schema({
-    users: {
-        type: Number,
-        default: 0
-    },
-    posts: {
-        type: Number,
-        default: 0
-    },
-    reports: {
-        type: Number,
-        default: 0
-    },
-})
-
-const Count = mongoose.model('Count', countSchema);
-
 const utmSchema = new Schema({
     fromwhere: {
         type: String,
@@ -169,7 +152,6 @@ const Report = mongoose.model('Report', reportSchema);
 module.exports = {
     User,
     Post,
-    Count,
     UTM,
     Report
 }

@@ -2,71 +2,71 @@
 <html lang="en">
 
 <head>
-  <%- include('inc/metatag.ejs') %>
-    <meta name="google-site-verification" content="KiRRxA551B0Uj9qczyJk5lMrc8oBy81gxr_elklHGb8" />
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/popup.css">
+    <%- include('inc/metatag.ejs') %>
+        <meta name="google-site-verification" content="KiRRxA551B0Uj9qczyJk5lMrc8oBy81gxr_elklHGb8" />
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/popup.css">
 
-    <title>PROJECT2</title>
+        <title>SEKIZ</title>
 </head>
 
 <body>
-  <div class="cont">
-    <%- include('inc/site_version.ejs') %>
-      <div class="header">
-        <div class="headercont">
-          <div class="logo">
-            <%- include('inc/logo.ejs') %>
-          </div>
-          <div class="search" title="Search something">
-            <input type="text" name="search" id="search" placeholder="Write something">
-            <span class="searchbtn">
+    <div class="cont">
+        <%- include('inc/site_version.ejs') %>
+            <div class="header">
+                <div class="headercont">
+                    <div class="logo">
+                        <%- include('inc/logo.ejs') %>
+                    </div>
+                    <div class="search" title="Search something">
+                        <input type="text" name="search" id="search" placeholder="Write something">
+                        <span class="searchbtn">
               <i class="fas fa-search"></i>
             </span>
-            <div class="results">
-              <img class="lazyload searchloading" data-src="/img/loading.gif" alt="search loading gif">
-              <span><a href="/kaan">kaan</a></span>
-              <span><a href="/kaan1">kaan1</a></span>
-              <span><a href="/kaan23">kaan23</a></span>
-              <span><a href="/kaan4112">kaan4112</a></span>
+                        <div class="results">
+                            <img class="lazyload searchloading" data-src="/img/loading.gif" alt="search loading gif">
+                            <span><a href="/kaan">kaan</a></span>
+                            <span><a href="/kaan1">kaan1</a></span>
+                            <span><a href="/kaan23">kaan23</a></span>
+                            <span><a href="/kaan4112">kaan4112</a></span>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <%- include('inc/header_right.ejs') %>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="right">
-            <%- include('inc/header_right.ejs') %>
-          </div>
-        </div>
-      </div>
-      <div class="center">
-        <div class="centercont">
-          <%- include('inc/banner.ejs') %>
-            <%- include('inc/sendpost.ejs') %>
-              <div class="posts">
-                <%- (locals.message) ? message : 'We could not find page that you were searched' %>
-              </div>
-              <!-- <div class="loading">
+            <div class="center">
+                <div class="centercont">
+                    <%- include('inc/banner.ejs') %>
+                        <%- include('inc/sendpost.ejs') %>
+                            <div class="posts">
+                                <%- (locals.message) ? message : 'We could not find page that you were searched' %>
+                            </div>
+                            <!-- <div class="loading">
                 <img src="/img/bird.gif" alt="loadinggif">
               </div> -->
-        </div>
+                </div>
 
 
-      </div>
-  </div>
-  <%- include('inc/share.ejs') %>
-    <%- include('inc/report.ejs') %>
-      <%- include('inc/popup.ejs') %>
-        <%- include('inc/cookie.ejs') %>
-          <i onclick="topFunction()" id="gotopbtn" title="Go to top" class="fas fa-arrow-up"></i>
+            </div>
+    </div>
+    <%- include('inc/share.ejs') %>
+        <%- include('inc/report.ejs') %>
+            <%- include('inc/popup.ejs') %>
+                <%- include('inc/cookie.ejs') %>
+                    <i onclick="topFunction()" id="gotopbtn" title="Go to top" class="fas fa-arrow-up"></i>
 
-          <script src="/js/jquery.min.js"></script>
+                    <script src="/js/jquery.min.js"></script>
 
-          <script src="/js/lazysizes.min.js" async></script>
-          <script src="/js/theme.min.js"></script>
-          <script src="/js/fontawesome.js"></script>
-          <script src="/js/index.js"></script>
-          <script src="/js/addpost.js"></script>
-          <script src="/js/popup.js"></script>
-          <!-- <script src="/js/browser_notifs.js"></script> -->
-          <script src="/js/utm_source.js"></script>
+                    <script src="/js/lazysizes.min.js" async></script>
+                    <script src="/js/theme.min.js"></script>
+                    <script src="/js/fontawesome.js"></script>
+                    <script src="/js/index.js"></script>
+                    <script src="/js/addpost.js"></script>
+                    <script src="/js/popup.js"></script>
+                    <!-- <script src="/js/browser_notifs.js"></script> -->
+                    <script src="/js/utm_source.js"></script>
 </body>
 
 </html>
