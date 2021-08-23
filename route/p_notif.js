@@ -1,6 +1,6 @@
 const { format } = require("timeago.js");
 
-module.exports = async function p_likeDislikeComment(req, res) {
+module.exports = async (req, res) => {
   const fs = require("fs");
   var countObj = { users: 10000000, posts: 10000000, reports: 100000000 };
   var userpath = "forbidden/users/user";
@@ -63,6 +63,6 @@ module.exports = async function p_likeDislikeComment(req, res) {
     }
   } else {
     //has not notif
-    res.json({ result: [] });
+    res.json({ result: [], status: 2 });
   }
 };

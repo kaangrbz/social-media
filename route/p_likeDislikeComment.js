@@ -1,4 +1,4 @@
-module.exports = async function p_likeDislikeComment(req, res) {
+module.exports = async (req, res) => {
   const fs = require("fs");
   var countObj = { users: 10000000, posts: 10000000, reports: 100000000 };
   var userpath = "forbidden/users/user";
@@ -46,6 +46,7 @@ module.exports = async function p_likeDislikeComment(req, res) {
         data.likes.who.unshift(userid);
         if (whoposted !== userid) {
           fpn = userpath + whoposted + "/notifications.json";
+          userid = req.session.userid;
           getJSON(fpn)
             .then((notif) => {
               notifObj = {

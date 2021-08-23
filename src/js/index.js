@@ -431,7 +431,6 @@ function getNotif() {
     success: (res) => {
       n_loading.hide();
       $(".markasread").show();
-      console.log(res);
       // // return
       if (res.status === 0) {
         message = `You should login for this <a href="/login">Let's login</a>`;
@@ -483,7 +482,7 @@ function getNotif() {
             ntag.append(t);
           }
         } else {
-          t = `<li><a href="javascript:void(0)">You have no notification, yet..<i class="far fa-sad-tear"></i></a></li>`;
+          t = `<li><a href="javascript:void(0)">You have no notification, yet..<i class="far fa-frown-open"></i></a></li>`;
           ntag.append(t);
         }
       } else if (res.status === 3) {
@@ -531,18 +530,20 @@ $(".notif").on("click", (e) => {
 });
 
 markasread = true;
-$(".markasread").on("click", () => {
+$(".markasread").on("click", (e) => {
   if (markasread) {
     url = "/markasread";
     $.post(url, (res) => {
-      console.log("markasread res =>", res);
-      if (res.status === 0) {
-        message = `You should login for this <a href="/login">Let's login</a>`;
-        popup(message, "auto", "warning", 3000);
-      } else if (res.status === 1) {
+      if (res.success === 1) {
         message = `Successfuly marked as read.`;
         popup(message, "auto", "success", 3000);
-      } else if (res.status === 2) {
+        var allNotRead = document.querySelectorAll(".notread");
+        for (let i = 0; i < allNotRead.length; i++) {
+          var element = allNotRead[i];
+          console.log(element.classList.remove("notread"));
+          e.currentTarget.remove();
+        }
+      } else if (res.error === 2) {
         message = res.message;
         popup(message, "auto", "danger", 3000);
       }

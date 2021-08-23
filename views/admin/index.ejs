@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../inc/metatag.ejs') %>
+    <meta
+      name="google-site-verification"
+      content="KiRRxA551B0Uj9qczyJk5lMrc8oBy81gxr_elklHGb8"
+    />
+    <link rel="stylesheet" href="/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/popup.css" />
+
+    <title>Admin Panel</title>
+  </head>
+
+  <body>
+    <div class="cont">
+      <%- include('../inc/site_version.ejs') %>
+      <div class="header">
+        <div class="headercont">
+          <div class="logo"><%- include('../inc/logo.ejs') %></div>
+          <div class="search" title="Search something">
+            <input
+              type="text"
+              name="search"
+              id="search"
+              placeholder="Write something"
+            />
+            <span class="searchbtn">
+              <i class="fas fa-search"></i>
+            </span>
+            <div class="results">
+              <img
+                class="lazyload searchloading"
+                data-src="/img/loading.gif"
+                alt="search loading gif"
+              />
+            </div>
+          </div>
+          <div class="right"><%- include('../inc/header_right.ejs') %></div>
+        </div>
+      </div>
+      <div class="center">
+        <div class="centercont">
+          <div class="posts" style="align-items: center;">
+            <a href="/admin/reports">reports</a>
+            <a href="/admin/users">users</a>
+            <a href="/admin/bans">bans</a>
+            <a href="/admin/suspends">suspends</a>
+            <a href="/admin/maintenance">maintenance</a>
+            <a href="/admin/backup">download backup</a>
+          </div>
+        </div>
+
+        <div class="cright">right</div>
+      </div>
+    </div>
+    <%- include('../inc/popup.ejs') %>
+    <i
+      onclick="topFunction()"
+      id="gotopbtn"
+      title="Go to top"
+      class="fas fa-arrow-up"
+    ></i>
+
+    <script src="/js/jquery.min.js"></script>
+
+    <script src="/js/lazysizes.min.js" async></script>
+    <script src="/js/theme.min.js"></script>
+    <script src="/js/fontawesome.js"></script>
+    <script src="/js/popup.js"></script>
+    <script src="/js/utm_source.js"></script>
+  </body>
+</html>

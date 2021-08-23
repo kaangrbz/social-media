@@ -36,10 +36,10 @@ $('#signupbtn').on('click', (e) => {
     $.post(url, data, res => {
       if (res.success === 1) {
         message = "Signup is successfuly."
-        popup(message, 'auto', 'success', 1000)
+        popup(message, 'auto', 'success', 1500)
         setTimeout(() => {
-          window.location.href = "/login"
-        }, 1000);
+          window.location.href = `/login?username${input.textContent}`
+        }, 1500);
       }
       else if (res.error === 1) {
         $(e).addClass('disabled')
@@ -59,7 +59,7 @@ $('#signupbtn').on('click', (e) => {
           f = true
           message = res.message
           popup(message, 'auto', 'warning', 4500)
-          adiv = $('.alts')
+          var adiv = $('.alts')
           alts.forEach(alt => {
             if (alt !== null) {
               if (f) {

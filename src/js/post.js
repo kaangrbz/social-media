@@ -92,7 +92,7 @@ function getpost() {
             </a>
             <div class="pdate">
             ${dd}
-            </div>-
+            </div>
               </div>
             </div>
             <div class="more">
@@ -210,7 +210,7 @@ function getpost() {
                 <div class="pdate">
                 ${dd}
                 </div>
-              </div>-
+              </div>
             </div>
             <div class="more">
               <i class="fas fa-ellipsis-h"></i>

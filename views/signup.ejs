@@ -1,48 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
+  <head>
     <%- include('inc/metatag.ejs') %>
 
-        <title>Sign up</title>
-        <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/random.css">
-        <link rel="stylesheet" href="/css/popup.css">
-</head>
+    <title>Sign up</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
 
-<body>
-    <div class="container ">
-        <form class="login" onsubmit="return false" id="signupform">
-            <h1>Sign up</h1>
-            <div class="form-group">
-                <input type="email" class="form-control" placeholder="email" name="email">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="fullname" name="fullname">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="username" name="username" autocomplete="username">
-            </div>
-            <div class="alts" style="margin-bottom: 10px;"></div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="userpass" name="userpass"
-                    autocomplete="current-password">
-            </div>
-            <div class="form-group">
-                You are already member? <a href="/login">Come here</a>
-            </div>
-            <button type="submit" class="btn btn-primary" id="signupbtn">Sign up</button>
+      body {
+        display: flex;
+        align-items: center;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .container > * {
+        margin-bottom: 10px;
+      }
+    </style>
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/popup.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <form id="signupform" class="form-signin" onsubmit="return false">
+          <h2 class="form-signin-heading">Register to Sekiz</h2>
+          <div class="alts"></div>
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            placeholder="Enter Username"
+            autocomplete="username"
+            required=""
+            autofocus=""
+          />
+          <input
+            type="password"
+            class="form-control"
+            name="userpass"
+            placeholder="Enter Password"
+            required=""
+          />
+          <input
+            type="mail"
+            class="form-control"
+            name="email"
+            placeholder="Enter Mail"
+            required=""
+          />
+          <input
+            type="text"
+            class="form-control"
+            name="fullname"
+            placeholder="Enter Fullname"
+            required=""
+          />
+          <!-- <label class="checkbox">
+                <input
+                  type="checkbox"
+                  value="remember-me"
+                  id="rememberMe"
+                  name="rememberMe"
+                />
+                Remember me
+              </label> -->
+          <button style="margin-top: 10px"
+            class="btn btn-lg btn-primary btn-block"
+            type="submit"
+            id="signupbtn"
+          >
+            Signup
+          </button>
+          <div style="margin-top: 10px">
+            Do you have an account?
+            <a href="/login" class="pe-auto text-primary"> Login </a>
+          </div>
         </form>
+      </div>
     </div>
-    <div class="random" id="profile"></div>
     <%- include('inc/popup.ejs') %>
 
-        <script src="/js/jquery.min.js"></script>
-        <script src="/js/html2canvas.min.js"></script>
-        <script src="/js/fontawesome.js"></script>
-        <script src="/js/popup.js"></script>
-        <script src="/js/loginevents.js"></script>
-</body>
-
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/html2canvas.min.js"></script>
+    <script src="/js/fontawesome.js"></script>
+    <script src="/js/popup.js"></script>
+    <script src="/js/loginevents.js"></script>
+  </body>
 </html>

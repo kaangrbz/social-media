@@ -1,1 +1,1 @@
-{"userid":10000000,"likes":{"c":2,"who":[10000001,10000000]},"dislikes":{"c":0,"who":[]},"comments":{"c":1,"who":[{"userid":10000001,"message":"123","createdAt":"2021-08-20T18:28:39.457Z","updatedAt":"2021-08-20T18:28:39.457Z"}]},"postid":10000000}
+{"userid":10000000,"likes":{"c":0,"who":[]},"dislikes":{"c":0,"who":[]},"comments":{"c":0,"who":[]},"postid":10000000}
