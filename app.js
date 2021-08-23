@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const session = require("express-session");
 const mongoose = require("mongoose");
-const slugify = require("@sindresorhus/slugify");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
